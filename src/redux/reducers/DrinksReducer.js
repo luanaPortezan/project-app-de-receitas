@@ -7,4 +7,4 @@ const drinksReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default DrinksReducer;
+export default drinksReducer;
