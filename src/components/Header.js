@@ -8,22 +8,26 @@ function Header({ pageName, history }) {
     <header>
       <h1
         data-testid="page-title"
-        >
+      >
         {pageName}
         {' '}
       </h1>
 
-      <img
-        src={ profileIcon }
-        data-testid="profile-top-btn"
-        alt="Ícone de Perfil"
-      />
+      <button type="button">
+        <img
+          src={ profileIcon }
+          data-testid="profile-top-btn"
+          alt="Ícone de Perfil"
+        />
+      </button>
 
-      <img
-        src={ searchIcon }
-        data-testid="search-top-btn"
-        alt="Ícone de Perfil de busca"
-      />
+      <button type="button">
+        <img
+          src={ searchIcon }
+          data-testid="search-top-btn"
+          alt="Ícone de Perfil de busca"
+        />
+      </button>
 
       <button
         type="button"
@@ -36,7 +40,7 @@ Header.propTypes = {
   pageName: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func,
-  })
+  }),
 }.isRequired;
 
 export default Header;
