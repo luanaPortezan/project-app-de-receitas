@@ -13,7 +13,10 @@ function Header({ pageName, history }) {
         {' '}
       </h1>
 
-      <button type="button">
+      <button
+        type="button"
+        onClick={ () => { history.push('/profile'); } }
+      >
         <img
           src={ profileIcon }
           data-testid="profile-top-btn"
@@ -21,7 +24,9 @@ function Header({ pageName, history }) {
         />
       </button>
 
-      <button type="button">
+      <button
+        type="button"
+      >
         <img
           src={ searchIcon }
           data-testid="search-top-btn"
@@ -29,10 +34,6 @@ function Header({ pageName, history }) {
         />
       </button>
 
-      <button
-        type="button"
-        onClick={ () => { history.push('/profile'); } }
-      ></button>
     </header>
   );
 }
