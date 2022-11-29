@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header({ pageName, history }) {
+  const [search, setSearch] = useState(false);
+
   return (
     <header>
       <h1
@@ -26,6 +28,7 @@ function Header({ pageName, history }) {
 
       <button
         type="button"
+        onClick={ () => { setSearch(!search); } }
       >
         <img
           src={ searchIcon }
@@ -33,6 +36,8 @@ function Header({ pageName, history }) {
           alt="Ícone de Perfil de busca"
         />
       </button>
+
+      {search && <input type="text" data-testid="search-input" />}
 
     </header>
   );
