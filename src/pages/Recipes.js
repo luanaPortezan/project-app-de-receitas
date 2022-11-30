@@ -2,19 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { fetchRecipes } from '../redux/actions';
+import { fetchRecipes, fetchCategories } from '../redux/actions';
 
 class Recipes extends React.Component {
   componentDidMount() {
     const { dispatch, location } = this.props;
-    console.log(location);
     if (location.pathname === '/meals') {
       dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
-    } else { dispatch(fetchRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')); }
+      dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
+    } else {
+      dispatch(fetchRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));
+      dispatch(fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'));
+    }
   }
 
   render() {
-    const { loadingApi, recipes } = this.props;
+    const { loadingApi, recipes, categories } = this.props;
     if (loadingApi) return <p>Loading</p>;
     return (
       <div>
@@ -37,6 +40,24 @@ class Recipes extends React.Component {
                   />
                   <h2 data-testid={ name }>{meal.strMeal}</h2>
                 </div>
+              );
+            }
+            return null;
+          })}
+        {categories.meals
+          && categories.meals.map((categorie, index) => {
+            const testid = `${categorie.strCategory}-category-filter`;
+            const num = 5;
+            if (index < num) {
+              return (
+                <button
+                  type="button"
+                  data-testid={ testid }
+
+                >
+                  {categorie.strCategory}
+
+                </button>
               );
             }
             return null;
@@ -64,6 +85,23 @@ class Recipes extends React.Component {
             }
             return null;
           })}
+        {categories.drinks
+          && categories.drinks.map((categorie, index) => {
+            const testid = `${categorie.strCategory}-category-filter`;
+            const num = 5;
+            if (index < num) {
+              return (
+                <button
+                  data-testid={ testid }
+                  type="button"
+                >
+                  {categorie.strCategory}
+
+                </button>
+              );
+            }
+            return null;
+          })}
 
       </div>
     );
@@ -72,6 +110,7 @@ class Recipes extends React.Component {
 
 const mapStateToProps = (state) => ({
   recipes: state.mealsReducer.recipes,
+  categories: state.mealsReducer.categories,
   loadingApi: state.mealsReducer.loadingApi,
 });
 
