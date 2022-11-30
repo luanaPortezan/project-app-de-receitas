@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { fetchRecipes, fetchCategories } from '../redux/actions';
 
 class Recipes extends React.Component {
@@ -20,6 +21,7 @@ class Recipes extends React.Component {
   fetchAll = () => {
     const { dispatch, location } = this.props;
     if (location.pathname === '/meals') {
+      console.log(location);
       dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
       dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
     } else {
@@ -57,7 +59,8 @@ class Recipes extends React.Component {
             const num = 12;
             if (index < num) {
               return (
-                <div
+                <Link
+                  to={ `/meals/${meal.idMeal}` }
                   key={ meal.idMeal }
                   data-testid={ card }
                 >
@@ -65,9 +68,10 @@ class Recipes extends React.Component {
                     data-testid={ img }
                     src={ meal.strMealThumb }
                     alt={ meal.strMeal }
+                    style={ { maxWidth: '75%' } }
                   />
                   <h2 data-testid={ name }>{meal.strMeal}</h2>
-                </div>
+                </Link>
               );
             }
             return null;
@@ -100,17 +104,20 @@ class Recipes extends React.Component {
             const num = 12;
             if (index < num) {
               return (
-                <div
+                <Link
+                  to={ `/drinks/${drink.idDrink}` }
                   key={ drink.idDrink }
                   data-testid={ card }
+
                 >
                   <img
                     data-testid={ img }
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrink }
+                    style={ { maxWidth: '75%' } }
                   />
                   <h2 data-testid={ name }>{drink.strDrink}</h2>
-                </div>
+                </Link>
               );
             }
             return null;
