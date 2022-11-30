@@ -1,13 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
 
-class Meals extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Pagina de Receitas</p>
-      </div>
-    );
-  }
+
+function Meals() {
+  return (
+    <div>
+      <Header>Pagina de Receitas</Header>
+    </div>
+  );
 }
 
 export default Meals;
