@@ -30,8 +30,8 @@ class Login extends React.Component {
   buttonClickStorage = () => {
     const { email } = this.state;
     const { history } = this.props;
-    const emailValue = JSON.stringify({ email });
-    localStorage.setItem('user', emailValue);
+    const valorEmail = { email };
+    localStorage.setItem('user', JSON.stringify(valorEmail));
     history.push('/meals');
   };
 
