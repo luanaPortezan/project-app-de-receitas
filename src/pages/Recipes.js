@@ -5,6 +5,14 @@ import { withRouter } from 'react-router';
 import { fetchRecipes, fetchCategories } from '../redux/actions';
 
 class Recipes extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      filtrado: 'All',
+    };
+  }
+
   componentDidMount() {
     this.fetchAll();
   }
@@ -18,10 +26,26 @@ class Recipes extends React.Component {
       dispatch(fetchRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));
       dispatch(fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'));
     }
+    this.setState(() => ({ filtrado: 'All' }));
+  };
+
+  filtrar = (event) => {
+    const { filtrado } = this.state;
+    const { dispatch, location } = this.props;
+    if (filtrado === event.target.value) {
+      this.fetchAll();
+    } else {
+      this.setState(() => ({ filtrado: event.target.value }));
+      if (location.pathname === '/meals') {
+        dispatch(fetchRecipes(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${event.target.value}`));
+      } else {
+        dispatch(fetchRecipes(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${event.target.value}`));
+      }
+    }
   };
 
   render() {
-    const { loadingApi, recipes, categories, dispatch } = this.props;
+    const { loadingApi, recipes, categories } = this.props;
     if (loadingApi) return <p>Loading</p>;
     return (
       <div>
@@ -57,7 +81,8 @@ class Recipes extends React.Component {
                 <button
                   type="button"
                   data-testid={ testid }
-                  onClick={ () => dispatch(fetchRecipes(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie.strCategory}`)) }
+                  onClick={ this.filtrar }
+                  value={ categorie.strCategory }
 
                 >
                   {categorie.strCategory}
@@ -99,7 +124,8 @@ class Recipes extends React.Component {
                 <button
                   data-testid={ testid }
                   type="button"
-                  onClick={ () => dispatch(fetchRecipes(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie.strCategory}`)) }
+                  onClick={ this.filtrar }
+                  value={ categorie.strCategory }
                 >
                   {categorie.strCategory}
 
