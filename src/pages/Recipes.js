@@ -121,6 +121,9 @@ Recipes.propTypes = {
   recipes: PropTypes.shape({
     meals: PropTypes.arrayOf,
     drinks: PropTypes.arrayOf }).isRequired,
+  categories: PropTypes.shape({
+    meals: PropTypes.arrayOf,
+    drinks: PropTypes.arrayOf }).isRequired,
 };
 
 export default connect(mapStateToProps)(withRouter(Recipes));

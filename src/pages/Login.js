@@ -40,7 +40,7 @@ class Login extends React.Component {
     const { email, password } = this.state;
     return (
       <div>
-      <Header />
+        <Header />
         <input
           type="text"
           data-testid="email-input"
