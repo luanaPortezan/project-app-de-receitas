@@ -71,7 +71,6 @@ it('testa a pagina Recipes', async () => {
         strTags: 'Streetfood, Onthego',
         strYoutube: 'https://www.youtube.com/watch?v=YsJXZwE5pdY',
         strIngredient1: 'Filo Pastry',
-        strIngredient2: mincedBeef,
         strIngredient3: 'Onion',
         strIngredient4: 'Oil',
         strIngredient5: 'Salt',
@@ -1378,14 +1377,62 @@ it('testa a pagina Recipes', async () => {
     ],
 
   };
+  const categories = {
+    meals: [
+      {
+        strCategory: 'Beef',
+      },
+      {
+        strCategory: 'Breakfast',
+      },
+      {
+        strCategory: 'Chicken',
+      },
+      {
+        strCategory: 'Dessert',
+      },
+      {
+        strCategory: 'Goat',
+      },
+      {
+        strCategory: 'Lamb',
+      },
+      {
+        strCategory: 'Miscellaneous',
+      },
+      {
+        strCategory: 'Pasta',
+      },
+      {
+        strCategory: 'Pork',
+      },
+      {
+        strCategory: 'Seafood',
+      },
+      {
+        strCategory: 'Side',
+      },
+      {
+        strCategory: 'Starter',
+      },
+      {
+        strCategory: 'Vegan',
+      },
+      {
+        strCategory: 'Vegetarian',
+      },
+    ],
+  };
 
   const INITIAL_STATE = {
     loadingApi: true,
     recipes,
-    categories: [],
+    categories,
     error: '' };
 
   renderWithRouterAndRedux(<Recipes />, { INITIAL_STATE });
   const images = await screen.findAllByRole('img');
   expect(images).toHaveLength(12);
+  const buttons = await screen.findAllByRole('button');
+  expect(buttons).toHaveLength(6);
 });

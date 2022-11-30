@@ -6,18 +6,22 @@ import { fetchRecipes, fetchCategories } from '../redux/actions';
 
 class Recipes extends React.Component {
   componentDidMount() {
+    this.fetchAll();
+  }
+
+  fetchAll = () => {
     const { dispatch, location } = this.props;
     if (location.pathname === '/meals') {
-      dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
       dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
+      dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
     } else {
       dispatch(fetchRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));
       dispatch(fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'));
     }
-  }
+  };
 
   render() {
-    const { loadingApi, recipes, categories } = this.props;
+    const { loadingApi, recipes, categories, dispatch } = this.props;
     if (loadingApi) return <p>Loading</p>;
     return (
       <div>
@@ -53,6 +57,7 @@ class Recipes extends React.Component {
                 <button
                   type="button"
                   data-testid={ testid }
+                  onClick={ () => dispatch(fetchRecipes(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie.strCategory}`)) }
 
                 >
                   {categorie.strCategory}
@@ -94,6 +99,7 @@ class Recipes extends React.Component {
                 <button
                   data-testid={ testid }
                   type="button"
+                  onClick={ () => dispatch(fetchRecipes(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie.strCategory}`)) }
                 >
                   {categorie.strCategory}
 
@@ -102,6 +108,15 @@ class Recipes extends React.Component {
             }
             return null;
           })}
+
+        <button
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ this.fetchAll }
+        >
+          All
+
+        </button>
 
       </div>
     );
