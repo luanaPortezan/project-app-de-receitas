@@ -2,9 +2,11 @@ import Header from '../components/Header';
 
 function Drinks() {
   return (
-    <div>
-      <Header>Drinks</Header>
-    </div>
+    <main>
+      <Header pages="drinks">
+        <h1>drinks</h1>
+      </Header>
+    </main>
   );
 }
 

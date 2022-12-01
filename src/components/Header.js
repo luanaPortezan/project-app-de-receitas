@@ -1,30 +1,34 @@
 import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-function Header({ pageName, history }) {
+function Header({ children, pages }) {
   const [search, setSearch] = useState(false);
+  const history = useHistory();
 
   return (
     <header>
       <h1
         data-testid="page-title"
       >
-        {pageName}
+        {children}
         {' '}
       </h1>
 
-      <button
-        type="button"
-        onClick={ () => { history.push('/profile'); } }
-      >
-        <img
-          src={ profileIcon }
-          data-testid="profile-top-btn"
-          alt="Ícone de Perfil"
-        />
-      </button>
+      {pages && (
+        <button
+          type="button"
+          onClick={ () => { history.push('/profile'); } }
+        >
+          <img
+            src={ profileIcon }
+            data-testid="profile-top-btn"
+            alt="Ícone de Perfil"
+          />
+        </button>
+      )}
 
       <button
         type="button"
@@ -38,12 +42,13 @@ function Header({ pageName, history }) {
       </button>
 
       {search && <input type="text" data-testid="search-input" />}
+      {/* falta colocar o searchBar em cima */}
 
     </header>
   );
 }
 Header.propTypes = {
-  pageName: PropTypes.string,
+  children: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
