@@ -5,7 +5,7 @@ class Drinks extends React.Component {
   render() {
     return (
       <div>
-        <p>Pagina de Receitas</p>
+        <p>Página de Drinks</p>
         <Footer />
       </div>
     );

@@ -5,13 +5,6 @@ import mealIcon from '../images/mealIcon.svg';
 // import Profile from './Profile';
 
 function Footer() {
-  // const handleChange = (event) => {
-  //  const name = event.target.value;
-  //  setId((prev) => ({
-  //    ...prev,
-  //    [name]: value,
-  //  }));
-  // };
   // onChange={ ({ target }) => setId(target.value) }
 
   return (
@@ -30,7 +23,7 @@ function Footer() {
             src={ drinkIcon }
             data-testid="drinks-bottom-btn"
             alt=""
-            name="drinks"
+            // name="drinks"
           // value={ name }
           />
         </Link>
@@ -46,7 +39,7 @@ function Footer() {
             src={ mealIcon }
             data-testid="meals-bottom-btn"
             alt=""
-            name="meals"
+            // name="meals"
           // value={ name }
           />
         </Link>
