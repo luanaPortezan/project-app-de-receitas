@@ -3,7 +3,7 @@ import Header from '../components/Header';
 function FavoriteRecipes() {
   return (
     <main>
-      <Header pages="FavoriteRecipes">
+      <Header pages isSearch="FavoriteRecipes">
         <h1>FavoriteRecipes</h1>
       </Header>
     </main>

@@ -20,7 +20,7 @@ function Meals() {
   return (
 
     <div>
-      <Header pages="Meals">
+      <Header pages isSearch="Meals">
         <h1>Meals</h1>
       </Header>
       <SearchBar />

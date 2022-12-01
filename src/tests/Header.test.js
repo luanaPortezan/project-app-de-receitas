@@ -6,7 +6,7 @@ import { renderWithRouterAndRedux } from './helpers/RenderWith';
 
 describe('Testes do componente Header', () => {
   it('verifica se os elementos estão na tela', () => {
-    renderWithRouterAndRedux(<Header search profile>Teste</Header>);
+    renderWithRouterAndRedux(<Header pages isSearch>Teste</Header>);
     const profileIcon = screen.getByTestId('profile-top-btn');
     const searchIcon = screen.getByTestId('search-top-btn');
     const title = screen.getByTestId('page-title');
@@ -15,7 +15,7 @@ describe('Testes do componente Header', () => {
     expect(title).toHaveTextContent('Teste');
   });
   it('verifica se ao clicar no search aparece o input para busca', () => {
-    renderWithRouterAndRedux(<Header search profile>Teste</Header>);
+    renderWithRouterAndRedux(<Header pages isSearch>Teste</Header>);
     const searchIcon = screen.getByTestId('search-top-btn');
     userEvent.click(searchIcon);
     const searchInput = screen.getByTestId('search-input');
