@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import { inputSearchValue } from '../redux/actions/searchActions';
 import '../styles/Header.css';
 
 function Header({ children, pages }) {
   const [search, setSearch] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const [inputSearch, setInputSearch] = useState('');
+
+  useEffect(() => {
+    const verifyInput = () => {
+      dispatch(inputSearchValue(inputSearch));
+    };
+    verifyInput();
+  }, [inputSearch, dispatch]);
 
   return (
     <header className="header">
@@ -42,7 +53,11 @@ function Header({ children, pages }) {
         />
       </button>
 
-      {search && <input type="text" data-testid="search-input" />}
+      {search && <input
+        type="text"
+        data-testid="search-input"
+        onChange={ ({ target }) => setInputSearch(target.value) }
+      />}
       {/* falta colocar o searchBar em cima */}
 
     </header>

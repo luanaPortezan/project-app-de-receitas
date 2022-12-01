@@ -1,8 +1,11 @@
+import { MEALS_INFO } from '../actions/mealsAction';
+
 const INITIAL_STATE = {
   loadingApi: true,
   recipes: [],
   categories: [],
-  error: '' };
+  error: '',
+  meals: [] };
 
 const mealsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -16,6 +19,12 @@ const mealsReducer = (state = INITIAL_STATE, action) => {
     return { ...state, loadingApi: true };
   case 'GET_CATEGORIES':
     return { ...state, categories: action.payload, loadingApi: false };
+  case MEALS_INFO:
+    return {
+      ...state,
+      lengthMeals: action.lengthMeals,
+      meals: action.meals,
+    };
   default:
     return state;
   }
