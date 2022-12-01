@@ -1,15 +1,18 @@
 import React from 'react';
 import Footer from './Footer';
+import Header from '../components/Header';
 
-class Profile extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Pagina de Receitas</p>
-        <Footer />
-      </div>
-    );
-  }
+function Profile() {
+  return (
+    <>
+      <main>
+        <Header pages="profile">
+          <h1>Profile</h1>
+        </Header>
+      </main>
+      <Footer />
+    </>
+  );
 }
 
 export default Profile;

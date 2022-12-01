@@ -1,5 +1,6 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import '../styles/Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -38,7 +39,7 @@ class Login extends React.Component {
   render() {
     const { email, password } = this.state;
     return (
-      <div>
+      <div className="form-login">
         <input
           type="text"
           data-testid="email-input"
