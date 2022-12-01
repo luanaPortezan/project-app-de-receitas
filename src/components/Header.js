@@ -18,7 +18,7 @@ function Header({ children, pages }) {
       dispatch(inputSearchValue(inputSearch));
     };
     verifyInput();
-  }, [inputSearch]);
+  }, [inputSearch, dispatch]);
 
   return (
     <header className="header">

@@ -15,7 +15,7 @@ function Meals() {
     if (lengthMeals) {
       setUpdate(true);
     }
-  }, [update]);
+  }, [update, lengthMeals]);
 
   return (
 

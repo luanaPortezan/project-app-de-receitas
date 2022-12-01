@@ -29,7 +29,7 @@ function SearchBar() {
       dispatch(inputSelected(inputRadio));
     };
     verifyRadio();
-  }, [inputRadio]);
+  }, [inputRadio, dispatch]);
 
   const dispatchReciepesMeals = async () => {
     if (history.location.pathname === '/meals') {
@@ -71,7 +71,7 @@ function SearchBar() {
     };
 
     f();
-  }, [clickMeals]);
+  }, [clickMeals, dispatch, history, store]);
 
   const dispatchReciepesDrinks = async () => {
     if (history.location.pathname === '/drinks') {
@@ -111,7 +111,7 @@ function SearchBar() {
       }
     };
     f();
-  }, [clickDrinks]);
+  }, [clickDrinks, dispatch, history, store]);
 
   const handleClick = () => {
     if (history.location.pathname === '/drinks') setClickDrinks(!clickDrinks);
