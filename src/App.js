@@ -17,13 +17,13 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/drinks" component={ Recipes } />
         <Route exact path="/meals" component={ Recipes } />
-        <Route path="/meals/:id-da-receita" component={ RecipeDetails } />
-        <Route path="/drinks/:id-da-receita" component={ RecipeDetails } />
-        <Route path="/meals/:id-da-receita/in-progress" component={ Login } />
-        <Route path="/drinks/:id-da-receita/in-progress" component={ Login } />
+        <Route path="/meals/:id_da_receita" component={ RecipeDetails } />
+        <Route path="/drinks/:id_da_receita" component={ RecipeDetails } />
+        <Route path="/meals/:id_da_receita/in_progress" component={ Login } />
+        <Route path="/drinks/:id_da_receita/in_progress" component={ Login } />
         <Route exact path="/profile" component={ Profile } />
-        <Route exact path="/done-recipes" component={ DoneRecipes } />
-        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+        <Route exact path="/done_recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite_recipes" component={ FavoriteRecipes } />
       </Switch>
     </BrowserRouter>
   );
