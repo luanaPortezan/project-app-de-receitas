@@ -2,9 +2,11 @@ import Header from '../components/Header';
 
 function DoneRecipes() {
   return (
-    <div>
-      <Header>DoneRecipes</Header>
-    </div>
+    <main>
+      <Header pages="DoneRecipes">
+        <h1>DoneRecipes</h1>
+      </Header>
+    </main>
   );
 }
 

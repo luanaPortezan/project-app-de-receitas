@@ -21,8 +21,9 @@ function Drinks() {
   return (
 
     <div>
-      <Header>Drinks</Header>
-      <h1 data-testid="page-title">Drinks</h1>
+      <Header pages="Drinks">
+        <h1>Drinks</h1>
+      </Header>
       <SearchBar />
       {update && drinks
         .filter((_, i) => i < maxNumber)

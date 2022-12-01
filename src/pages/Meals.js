@@ -20,8 +20,9 @@ function Meals() {
   return (
 
     <div>
-      <Header>Pagina de Receitas</Header>
-      <h1 data-testid="page-title">Meals</h1>
+      <Header pages="Meals">
+        <h1>Meals</h1>
+      </Header>
       <SearchBar />
       {update && meals
         .filter((_, i) => i < maxNumber)
