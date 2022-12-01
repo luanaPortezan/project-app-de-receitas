@@ -1,3 +1,5 @@
+import React from 'react';
+import Footer from './Footer';
 import { useEffect, useState } from 'react';
 import { useStore } from 'react-redux';
 import Header from '../components/Header';
@@ -36,7 +38,8 @@ function Meals() {
               alt={ `${meal.strMeal}` }
             />
           </div>))}
-    </div>
+      <Footer />
+     </div>
   );
 }
 
