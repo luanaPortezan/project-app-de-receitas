@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import '../styles/Header.css';
 
 function Header({ children, pages }) {
   const [search, setSearch] = useState(false);
   const history = useHistory();
 
   return (
-    <header>
+    <header className="header">
       <h1
         data-testid="page-title"
       >
