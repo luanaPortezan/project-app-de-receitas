@@ -39,7 +39,9 @@ function RecipesDetails(props) {
   }, [receita]);
 
   return (
-     <Header pages="profile">
+    <main>
+
+      <Header pages="profile">
         <h1>Profile</h1>
       </Header>
       {loadingApi ? <h1>Loading</h1>
@@ -74,17 +76,16 @@ function RecipesDetails(props) {
               src={ receita.strYoutube }
               frameBorder="0"
               allow="accelerometer;
-               autoplay; clipboard-write;
-                encrypted-media;
-                 gyroscope;
-                  picture-in-picture"
+            autoplay; clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture"
               allowFullScreen
               title="Embedded youtube"
             />}
           </>
         )}
-
-    </div>
+    </main>
   );
 }
 
