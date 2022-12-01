@@ -95,6 +95,10 @@ const mapStateToProps = (state) => ({
 RecipesDetails.propTypes = {
   dispatch: PropTypes.func.isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
+  recipe: PropTypes.shape({
+    meals: PropTypes.arrayOf,
+    drinks: PropTypes.arrayOf }).isRequired,
+  loadingApi: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(RecipesDetails);
