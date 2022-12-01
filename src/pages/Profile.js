@@ -2,9 +2,11 @@ import Header from '../components/Header';
 
 function Profile() {
   return (
-    <div>
-      <Header>Profile</Header>
-    </div>
+    <main>
+      <Header pages="profile">
+        <h1>profile</h1>
+      </Header>
+    </main>
   );
 }
 

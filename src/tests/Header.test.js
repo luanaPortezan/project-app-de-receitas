@@ -2,10 +2,10 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Header from '../components/Header';
 
-import { renderWithRouterAndRedux } from './helpers/render';
+import { renderWithRouterAndRedux } from './helpers/RenderWith';
 
 describe('Testes do componente Header', () => {
-  test('verifica se os elementos estão na tela', () => {
+  it('verifica se os elementos estão na tela', () => {
     renderWithRouterAndRedux(<Header search profile>Teste</Header>);
     const profileIcon = screen.getByTestId('profile-top-btn');
     const searchIcon = screen.getByTestId('search-top-btn');
@@ -14,7 +14,7 @@ describe('Testes do componente Header', () => {
     expect(searchIcon).toBeInTheDocument();
     expect(title).toHaveTextContent('Teste');
   });
-  test('verifica se ao clicar no search aparece o input para busca', () => {
+  it('verifica se ao clicar no search aparece o input para busca', () => {
     renderWithRouterAndRedux(<Header search profile>Teste</Header>);
     const searchIcon = screen.getByTestId('search-top-btn');
     userEvent.click(searchIcon);

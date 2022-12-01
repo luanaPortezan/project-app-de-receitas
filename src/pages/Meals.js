@@ -3,9 +3,11 @@ import Header from '../components/Header';
 
 function Meals() {
   return (
-    <div>
-      <Header>Pagina de Receitas</Header>
-    </div>
+    <main>
+      <Header pages="meals">
+        <h1>meals</h1>
+      </Header>
+    </main>
   );
 }
 
