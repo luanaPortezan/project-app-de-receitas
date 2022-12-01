@@ -39,8 +39,9 @@ function RecipesDetails(props) {
   }, [receita]);
 
   return (
-    <div>
-      <Header>RecipesDetails</Header>
+     <Header pages="profile">
+        <h1>Profile</h1>
+      </Header>
       {loadingApi ? <h1>Loading</h1>
         : (
           <>

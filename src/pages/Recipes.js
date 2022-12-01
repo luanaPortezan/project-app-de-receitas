@@ -53,6 +53,7 @@ class Recipes extends React.Component {
     return (
       <div>
         <Header />
+        {/* falta colocar um if/else no Header para se for Drinks ou Meals */}
         <SearchBar />
         {recipes.meals
           && recipes.meals.map((meal, index) => {

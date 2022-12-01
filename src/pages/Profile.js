@@ -4,7 +4,7 @@ function Profile() {
   return (
     <main>
       <Header pages="profile">
-        <h1>profile</h1>
+        <h1>Profile</h1>
       </Header>
     </main>
   );
