@@ -1,9 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import { fetchRecipes, fetchCategories } from '../redux/actions';
+import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
+import { fetchCategories, fetchRecipes } from '../redux/actions';
 
 class Recipes extends React.Component {
   constructor() {
@@ -51,6 +53,8 @@ class Recipes extends React.Component {
     if (loadingApi) return <p>Loading</p>;
     return (
       <div>
+        <Header />
+        <SearchBar />
         {recipes.meals
           && recipes.meals.map((meal, index) => {
             const card = `${index}-recipe-card`;
@@ -68,7 +72,7 @@ class Recipes extends React.Component {
                     data-testid={ img }
                     src={ meal.strMealThumb }
                     alt={ meal.strMeal }
-                    style={ { maxWidth: '75%' } }
+                    width="150"
                   />
                   <h2 data-testid={ name }>{meal.strMeal}</h2>
                 </Link>
@@ -114,7 +118,7 @@ class Recipes extends React.Component {
                     data-testid={ img }
                     src={ drink.strDrinkThumb }
                     alt={ drink.strDrink }
-                    style={ { maxWidth: '75%' } }
+                    width="150"
                   />
                   <h2 data-testid={ name }>{drink.strDrink}</h2>
                 </Link>
