@@ -3,12 +3,24 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Meals from './pages/Meals';
+import Footer from './pages/Footer';
+import Drinks from './pages/Drinks';
+import Profile from './pages/Profile';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/meals" component={ Meals } />
+      <Route path="/footer" component={ Footer } />
+      <Route exact path="/meals" component={ Meals } />
+      <Route exact path="/drinks" component={ Drinks } />
+      <Route path="/meals/:id-da-receita" />
+      <Route path="/drinks/:id-da-receita" />
+      <Route path="/meals/:id-da-receita/in-progress" />
+      <Route path="/drinks/:id-da-receita/in-progress" />
+      <Route path="/profile" component={ Profile } />
+      <Route path="/done-recipes" />
+      <Route path="/favorite-recipes" />
     </Switch>
   );
 }

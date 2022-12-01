@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from './Footer';
 
-class Meals extends React.Component {
+class Profile extends React.Component {
   render() {
     return (
       <div>
@@ -12,4 +12,4 @@ class Meals extends React.Component {
   }
 }
 
-export default Meals;
+export default Profile;
