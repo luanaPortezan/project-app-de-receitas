@@ -39,13 +39,6 @@ class DoneRecipes extends React.Component {
     });
   };
 
-  copyURL = (type, id) => {
-    copy(`http://localhost:3000/${type}s/${id}`);
-    this.setState({
-      copied: true,
-    });
-  };
-
   render() {
     const { recipes, copied } = this.state;
     return (
@@ -96,7 +89,15 @@ class DoneRecipes extends React.Component {
                   {' '}
                   {rec.doneDate}
                 </p>
-                <button type="button" onClick={ this.copyURL(rec.type, rec.id) }>
+                <button
+                  type="button"
+                  onClick={ () => {
+                    copy(`http://localhost:3000/${rec.type}s/${rec.id}`);
+                    this.setState({
+                      copied: true,
+                    });
+                  } }
+                >
                   <img
                     data-testid={ `${index}-horizontal-share-btn` }
                     src={ shareIcon }
