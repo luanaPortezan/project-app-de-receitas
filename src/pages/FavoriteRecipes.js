@@ -10,7 +10,7 @@ class FavoriteRecipes extends React.Component {
         <img
           src="teste.com"
           alt="Imagem da Receita"
-          data-testid="${index}-horizontal-image"
+        //   data-testid="${index}-horizontal-image"
         />
 
       </div>
