@@ -71,7 +71,7 @@ function SearchBar() {
     };
 
     f();
-  }, [clickMeals, dispatch, history, store]);
+  }, [clickMeals, dispatch, history, store, dispatchReciepesMeals]);
 
   const dispatchReciepesDrinks = async () => {
     if (history.location.pathname === '/drinks') {

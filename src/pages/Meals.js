@@ -1,7 +1,6 @@
-import React from 'react';
-import Footer from './Footer';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStore } from 'react-redux';
+import Footer from './Footer';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 
@@ -39,7 +38,7 @@ function Meals() {
             />
           </div>))}
       <Footer />
-     </div>
+    </div>
   );
 }
 

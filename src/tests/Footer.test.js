@@ -5,6 +5,8 @@ import { renderWithRouter } from './RenderWithL';
 import Footer from '../pages/Footer';
 import App from '../App';
 
+const pgTitleId = 'tile-page';
+const iconkDrink = drinkIcon;
 describe('Verifica se a página Footer os componentes', () => {
   it('Verificar se é direcionado para a página Footer', () => {
     render(<Footer />);
@@ -12,27 +14,23 @@ describe('Verifica se a página Footer os componentes', () => {
     act(() => history.push('/footer'));
     const button = screen.getByRole('button', { name: /entrar/i });
     userEvent.click(button);
-    it('Verifica se é redirecionado para a página Drinks', () => {
   });
-
+  it('Verifica se é redirecionado para a página Drinks', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/drink'));
 
-    const pageDrink = screen.getByTestId('page-title');
-    expect(pageDrink).toHaveTextContent('Drinks');
-
-    userEvent.click(drinkIcon);
+    const pageDrink1 = screen.getByTestId(pgTitleId);
+    expect(pageDrink1).toHaveTextContent('Drinks');
+    userEvent.click(iconkDrink);
 
     const drinkIcon = screen.getByTestId('drinks-bottom-btn');
     expect(drinkIcon).toBeInTheDocument();
 
     const imgDrink = screen.getByTestId('drinkIcon');
     expect(imgDrink).toBeInTheDocument();
-    
+
     const linkApp = screen.getByText(/Página de receitas!/i);
     expect(linkApp).toBeInTheDocument();
-
-
   });
 
   it('Verifica se é redirecionado para a página Meals', () => {
@@ -69,3 +67,4 @@ describe('Verifica se a página Footer os componentes', () => {
     expect(drinkIcon).toBeInTheDocument();
   });
 });
+//
