@@ -2,29 +2,44 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 import Header from '../components/Header';
-import { fetchRecipe } from '../redux/actions';
+import { fetchRecipe, fetchRecipes } from '../redux/actions';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function RecipesDetails(props) {
   const params = useParams();
-  const { dispatch, location, recipe, loadingApi } = props;
+  const { dispatch, location, recipe, loadingApi, sugestion } = props;
   const [receita, setReceita] = useState([]);
   const [type, setType] = useState('');
+  const [sugesType, setSugesType] = useState('');
   const [ingredientes, setIngredientes] = useState([]);
   const [medidas, setMedidas] = useState([]);
   useEffect(() => {
     if (location.pathname.includes('/meals/')) {
       dispatch(fetchRecipe(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${params.id}`));
-    } else { dispatch(fetchRecipe(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${params.id}`)); }
+      dispatch(fetchRecipes('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));
+    } else {
+      dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
+      dispatch(fetchRecipe(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${params.id}`));
+    }
   }, []);
+
+  useEffect(() => {
+    if (sugestion[`${sugesType}`]) {
+      console.log((sugestion[`${sugesType}`])[0]);
+    }
+  }, [sugestion]);
 
   useEffect(() => {
     if (recipe.meals) {
       setReceita(recipe.meals[0]);
       setType('Meal');
+      setSugesType(['drinks', 'Drink']);
     } else if (recipe.drinks) {
       setReceita(recipe.drinks[0]);
       setType('Drink');
+      setSugesType(['meals', 'Meal']);
     }
   }, [recipe]);
 
@@ -35,7 +50,6 @@ function RecipesDetails(props) {
     setMedidas(Object.keys(receita)
       .filter((key) => key.includes('Measure'))
       .reduce((cur, key) => Object.assign(cur, { [key]: receita[key] }), []));
-    console.log(medidas);
   }, [receita]);
 
   return (
@@ -83,6 +97,76 @@ function RecipesDetails(props) {
               allowFullScreen
               title="Embedded youtube"
             />}
+            <Carousel>
+              <Carousel.Item>
+                <div data-testid="0-recommendation-card">
+                  <h3
+                    data-testid="0-recommendation-title"
+                  >
+                    {sugestion[`${sugesType[0]}`]
+                    && (sugestion[`${sugesType[0]}`])[0][`str${sugesType[1]}`]}
+
+                  </h3>
+                </div>
+                <div data-testid="1-recommendation-card">
+                  <h3
+                    data-testid="1-recommendation-title"
+                  >
+                    {sugestion[`${sugesType[0]}`]
+                    && (sugestion[`${sugesType[0]}`])[1][`str${sugesType[1]}`]}
+
+                  </h3>
+                </div>
+                {' '}
+
+              </Carousel.Item>
+              <Carousel.Item>
+                <div data-testid="2-recommendation-card">
+                  <h3
+                    data-testid="2-recommendation-title"
+                  >
+                    {sugestion[`${sugesType[0]}`]
+                    && (sugestion[`${sugesType[0]}`])[2][`str${sugesType[1]}`]}
+
+                  </h3>
+                </div>
+                <div data-testid="3-recommendation-card">
+                  <h3
+                    data-testid="3-recommendation-title"
+                  >
+                    {sugestion[`${sugesType[0]}`]
+                    && (sugestion[`${sugesType[0]}`])[3][`str${sugesType[1]}`]}
+
+                  </h3>
+                </div>
+                {' '}
+
+              </Carousel.Item>
+              {' '}
+              <Carousel.Item>
+                <div data-testid="4-recommendation-card">
+                  <h3
+                    data-testid="4-recommendation-title"
+                  >
+                    {sugestion[`${sugesType[0]}`]
+                    && (sugestion[`${sugesType[0]}`])[4][`str${sugesType[1]}`]}
+
+                  </h3>
+                </div>
+                <div data-testid="5-recommendation-card">
+                  <h3
+                    data-testid="5-recommendation-title"
+                  >
+                    {sugestion[`${sugesType[0]}`]
+                    && (sugestion[`${sugesType[0]}`])[5][`str${sugesType[1]}`]}
+
+                  </h3>
+                </div>
+                {' '}
+
+              </Carousel.Item>
+
+            </Carousel>
           </>
         )}
     </main>
@@ -90,6 +174,7 @@ function RecipesDetails(props) {
 }
 
 const mapStateToProps = (state) => ({
+  sugestion: state.mealsReducer.recipes,
   recipe: state.mealsReducer.recipe,
   loadingApi: state.mealsReducer.loadingApi,
 });
@@ -98,6 +183,9 @@ RecipesDetails.propTypes = {
   dispatch: PropTypes.func.isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
   recipe: PropTypes.shape({
+    meals: PropTypes.arrayOf,
+    drinks: PropTypes.arrayOf }).isRequired,
+  sugestion: PropTypes.shape({
     meals: PropTypes.arrayOf,
     drinks: PropTypes.arrayOf }).isRequired,
   loadingApi: PropTypes.bool.isRequired,
