@@ -161,6 +161,15 @@ function RecipesDetails(props) {
               </Carousel.Item>
 
             </Carousel>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              style={ { position: 'fixed',
+                bottom: '0px' } }
+            >
+              Start Recipe
+
+            </button>
           </>
         )}
     </main>
