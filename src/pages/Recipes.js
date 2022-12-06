@@ -2,9 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+<<<<<<< HEAD
+import DrinksRender from '../components/DrinksRender';
+=======
+>>>>>>> a8038c70f00a15db92afbc35c4b0b2c22533a867
 import { fetchCategories, fetchRecipes } from '../redux/actions';
+import MealsRender from '../components/MealsRender';
 
 class Recipes extends React.Component {
   constructor() {
@@ -48,6 +52,17 @@ class Recipes extends React.Component {
   };
 
   render() {
+<<<<<<< HEAD
+    const { loadingApi,
+      categories } = this.props;
+    if (loadingApi) return <p>Loading</p>;
+    return (
+      <div>
+        <Header />
+
+        <MealsRender />
+
+=======
     const { loadingApi, recipes, categories, location } = this.props;
     if (loadingApi) return <p>Loading</p>;
     return (
@@ -80,6 +95,7 @@ class Recipes extends React.Component {
             }
             return null;
           })}
+>>>>>>> a8038c70f00a15db92afbc35c4b0b2c22533a867
         {categories.meals
           && categories.meals.map((categorie, index) => {
             const testid = `${categorie.strCategory}-category-filter`;
@@ -100,32 +116,9 @@ class Recipes extends React.Component {
             }
             return null;
           })}
-        {recipes.drinks
-          && recipes.drinks.map((drink, index) => {
-            const card = `${index}-recipe-card`;
-            const img = `${index}-card-img`;
-            const name = `${index}-card-name`;
-            const num = 12;
-            if (index < num) {
-              return (
-                <Link
-                  to={ `/drinks/${drink.idDrink}` }
-                  key={ drink.idDrink }
-                  data-testid={ card }
 
-                >
-                  <img
-                    data-testid={ img }
-                    src={ drink.strDrinkThumb }
-                    alt={ drink.strDrink }
-                    width="150"
-                  />
-                  <h2 data-testid={ name }>{drink.strDrink}</h2>
-                </Link>
-              );
-            }
-            return null;
-          })}
+        <DrinksRender />
+
         {categories.drinks
           && categories.drinks.map((categorie, index) => {
             const testid = `${categorie.strCategory}-category-filter`;
@@ -164,6 +157,10 @@ const mapStateToProps = (state) => ({
   recipes: state.mealsReducer.recipes,
   categories: state.mealsReducer.categories,
   loadingApi: state.mealsReducer.loadingApi,
+  meals: state.mealsReducer.meals,
+  lengthMeals: state.mealsReducer.lengthMeals,
+  drinks: state.drinksReducer.drinks,
+  lengthDrinks: state.drinksReducer.lengthDrink,
 });
 
 Recipes.propTypes = {
@@ -176,6 +173,11 @@ Recipes.propTypes = {
   categories: PropTypes.shape({
     meals: PropTypes.arrayOf,
     drinks: PropTypes.arrayOf }).isRequired,
-};
+  meals: PropTypes.shape({
+    meals: PropTypes.arrayOf,
+    drinks: PropTypes.arrayOf,
+    lengthMeals: PropTypes.number.isRequired,
+  }).isRequired,
+}.isRequired;
 
 export default connect(mapStateToProps)(withRouter(Recipes));
