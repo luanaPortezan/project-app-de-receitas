@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import { inputSearchValue } from '../redux/actions/searchActions';
 import '../styles/Header.css';
+import SearchBar from './SearchBar';
 
 function Header({ children, pages }) {
   const [search, setSearch] = useState(false);
@@ -58,8 +59,7 @@ function Header({ children, pages }) {
         data-testid="search-input"
         onChange={ ({ target }) => setInputSearch(target.value) }
       />}
-      {/* falta colocar o searchBar em cima */}
-
+      <SearchBar />
     </header>
   );
 }
