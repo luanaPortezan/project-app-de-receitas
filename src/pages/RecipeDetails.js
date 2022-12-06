@@ -2,9 +2,11 @@ import Header from '../components/Header';
 
 function RecipesDetails() {
   return (
-    <div>
-      <Header>RecipesDetails</Header>
-    </div>
+    <main>
+      <Header pages isSearch={ false }>
+        <h1>Recipes Details</h1>
+      </Header>
+    </main>
   );
 }
 
