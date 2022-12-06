@@ -3,7 +3,7 @@ import Header from '../components/Header';
 function Profile() {
   return (
     <main>
-      <Header pages isSearch="profile">
+      <Header pages isSearch={ false }>
         <h1>Profile</h1>
       </Header>
     </main>

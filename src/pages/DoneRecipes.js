@@ -3,8 +3,8 @@ import Header from '../components/Header';
 function DoneRecipes() {
   return (
     <main>
-      <Header pages isSearch="DoneRecipes">
-        <h1>DoneRecipes</h1>
+      <Header pages isSearch={ false }>
+        <h1>Done Recipes</h1>
       </Header>
     </main>
   );

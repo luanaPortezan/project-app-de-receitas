@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useStore } from 'react-redux';
-import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
 
 function Meals() {
   const store = useStore();
@@ -20,10 +18,10 @@ function Meals() {
   return (
 
     <div>
-      <Header pages isSearch="Meals">
+      {/* <Header pages isSearch>
         <h1>Meals</h1>
-      </Header>
       <SearchBar />
+      </Header> */}
       {update && meals
         .filter((_, i) => i < maxNumber)
         .map((meal, i) => (
