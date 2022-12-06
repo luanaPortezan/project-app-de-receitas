@@ -26,7 +26,6 @@ class Recipes extends React.Component {
   fetchAll = () => {
     const { dispatch, location } = this.props;
     if (location.pathname === '/meals') {
-      console.log(location);
       dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
       dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
     } else {
