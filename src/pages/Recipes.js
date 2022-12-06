@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
 import { fetchCategories, fetchRecipes } from '../redux/actions';
 
 class Recipes extends React.Component {
@@ -48,13 +47,13 @@ class Recipes extends React.Component {
   };
 
   render() {
-    const { loadingApi, recipes, categories } = this.props;
+    const { loadingApi, recipes, categories, location } = this.props;
     if (loadingApi) return <p>Loading</p>;
     return (
       <div>
-        <Header />
-        {/* falta colocar um if/else no Header para se for Drinks ou Meals */}
-        <SearchBar />
+        <Header pages isSearch>
+          {location.pathname === '/meals' ? <h1>Meals</h1> : <h1>Drinks</h1>}
+        </Header>
         {recipes.meals
           && recipes.meals.map((meal, index) => {
             const card = `${index}-recipe-card`;
