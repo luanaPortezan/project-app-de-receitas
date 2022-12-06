@@ -1,8 +1,9 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
+
 import userEvent from '@testing-library/user-event';
-import { renderWithRouterAndRedux } from './RenderWithL';
+import React from 'react';
 import Recipes from '../pages/Recipes';
+import { renderWithRouterAndRedux } from './RenderWithL';
 
 const recipes = {
   meals: [
