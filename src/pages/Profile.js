@@ -6,8 +6,8 @@ function Profile() {
   return (
     <>
       <main>
-        <Header pages="profile">
-          <h1>Profile</h1>
+        <Header pages isSearch={ false }>
+        <h1>Profile</h1>
         </Header>
       </main>
       <Footer />

@@ -22,7 +22,7 @@ function Drinks() {
   return (
 
     <div>
-      <Header pages="Drinks">
+      <Header pages isSearch="Drinks">
         <h1>Drinks</h1>
       </Header>
       <SearchBar />

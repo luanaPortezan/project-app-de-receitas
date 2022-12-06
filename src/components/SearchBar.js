@@ -124,7 +124,7 @@ function SearchBar() {
       <input
         id="search-input"
         type="input"
-        value={ searchInput }
+        // value={ searchInput }
         data-testid="search-input"
       />
 
