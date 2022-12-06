@@ -26,12 +26,6 @@ function RecipesDetails(props) {
   }, []);
 
   useEffect(() => {
-    if (sugestion[`${sugesType}`]) {
-      console.log((sugestion[`${sugesType}`])[0]);
-    }
-  }, [sugestion]);
-
-  useEffect(() => {
     if (recipe.meals) {
       setReceita(recipe.meals[0]);
       setType('Meal');
