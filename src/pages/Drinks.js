@@ -4,6 +4,7 @@ import { useStore } from 'react-redux';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 // import Recipes from './Recipes';
+import Footer from './Footer';
 
 function Drinks() {
   const store = useStore();
@@ -37,6 +38,7 @@ function Drinks() {
               alt={ `${drink.strDrink}` }
             />
           </div>)) }
+      <Footer />
     </div>
   );
 }
