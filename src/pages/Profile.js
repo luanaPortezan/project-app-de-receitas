@@ -7,7 +7,7 @@ function Profile() {
     <>
       <main>
         <Header pages isSearch={ false }>
-        <h1>Profile</h1>
+          <h1>Profile</h1>
         </Header>
       </main>
       <Footer />
