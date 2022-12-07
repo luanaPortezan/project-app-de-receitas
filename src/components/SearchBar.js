@@ -11,7 +11,10 @@ import {
 } from '../api/fetchApiEndPoints';
 import { drinksInfo } from '../redux/actions/drinksActions';
 import { mealsInfo } from '../redux/actions/mealsAction';
-import { inputSelected, reciepesSelect } from '../redux/actions/searchActions';
+import {
+  inputSearchValue, inputSelected,
+  reciepesSelect,
+} from '../redux/actions/searchActions';
 
 function SearchBar() {
   const [inputRadio, setInputRadio] = useState('');
@@ -23,6 +26,7 @@ function SearchBar() {
   const radioValue = store.getState().selectedReducer.inputSelected;
   const history = useHistory();
   const alert = 'Sorry, we haven\'t found any recipes for these filters.';
+  const [inputSearch, setInputSearch] = useState('');
 
   useEffect(() => {
     const verifyRadio = () => {
@@ -30,6 +34,14 @@ function SearchBar() {
     };
     verifyRadio();
   }, [inputRadio, dispatch]);
+
+  useEffect(() => {
+    const verifyInput = () => {
+      dispatch(inputSearchValue(inputSearch));
+    };
+    verifyInput();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputSearch]);
 
   const dispatchReciepesMeals = async () => {
     if (history.location.pathname === '/meals') {
@@ -71,7 +83,8 @@ function SearchBar() {
     };
 
     f();
-  }, [clickMeals, dispatch, history, store]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickMeals]);
 
   const dispatchReciepesDrinks = async () => {
     if (history.location.pathname === '/drinks') {
@@ -111,7 +124,8 @@ function SearchBar() {
       }
     };
     f();
-  }, [clickDrinks, dispatch, history, store]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickDrinks]);
 
   const handleClick = () => {
     if (history.location.pathname === '/drinks') setClickDrinks(!clickDrinks);
@@ -124,6 +138,7 @@ function SearchBar() {
       <input
         id="search-input"
         type="input"
+        onChange={ ({ target }) => setInputSearch(target.value) }
         data-testid="search-input"
       />
 
