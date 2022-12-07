@@ -120,12 +120,12 @@ function SearchBar() {
 
   return (
     <>
-
+      {/*
       <input
         id="search-input"
         type="input"
         data-testid="search-input"
-      />
+      /> */}
 
       <label htmlFor="ingredient">
         Ingredient
