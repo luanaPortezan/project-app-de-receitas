@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
-import Header from '../components/Header';
+// import Header from '../components/Header';
 import { fetchRecipe, fetchRecipes } from '../redux/actions';
 import 'bootstrap/dist/css/bootstrap.css';
 
