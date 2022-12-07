@@ -6,7 +6,6 @@
   flex-direction: column;
   font-family: sans-serif;
   height: 100px;
-  /*justify-content: center;*/
   justify-content: space-around;
   width: 50%;
 }
@@ -19,7 +18,6 @@
   flex-direction: column;
   font-family: sans-serif;
   height: 100px;
-  /*justify-content: center;*/
   justify-content: space-around;
   width: 50%;
 }
@@ -60,20 +58,18 @@
 }
 
 .footer {
+  background-color: rgb(158, 155, 155);
+  bottom: 0;
+  color: aliceblue;
   display: flex;
+  font-family: Montserrat , sans-serif;
+  height: 2.5rem;
+  left: 0;
   position: fixed;
-  /*justify-content: space-around;*/
   text-align: center;
   width: 100%;
-  left: 0;
-  bottom: 0;
-  height: 2.5rem;
-  background-color: rgb(158, 155, 155);
-  /*animation: shake 1.5s infinite ease;*/
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  /*position: absolute;*/
 }
+
 @keyframes shake {
 
   0% {
@@ -103,9 +99,3 @@
     transform: rotate(-10deg);
   }
 }
-
-
-/*#flex-container {
-  flex-direction: column-reverse;
-  display: flex;
-}*/
