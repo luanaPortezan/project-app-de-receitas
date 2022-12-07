@@ -25,6 +25,7 @@ class DrinksRender extends React.Component {
                   to={ `/drinks/${drink.idDrink}` }
                   key={ drink.idDrink }
                   data-testid={ card }
+
                 >
                   <img
                     data-testid={ img }
@@ -47,6 +48,7 @@ class DrinksRender extends React.Component {
                   to={ `/drinks/${drink.idDrink}` }
                   key={ drink.idDrink }
                   data-testid={ `${index}-recipe-card` }
+
                 >
                   <img
                     data-testid={ img }
@@ -64,6 +66,7 @@ class DrinksRender extends React.Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   recipes: state.mealsReducer.recipes,
   categories: state.mealsReducer.categories,
@@ -73,6 +76,7 @@ const mapStateToProps = (state) => ({
   drinks: state.drinksReducer.drinks,
   lengthDrinks: state.drinksReducer.lengthDrink,
 });
+
 DrinksRender.propTypes = {
   dispatch: PropTypes.func.isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
@@ -91,4 +95,5 @@ DrinksRender.propTypes = {
     lengthMeals: PropTypes.number.isRequired,
   }).isRequired,
 }.isRequired;
+
 export default connect(mapStateToProps)(withRouter(DrinksRender));

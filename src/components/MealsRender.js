@@ -63,6 +63,7 @@ class MealsRender extends React.Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   recipes: state.mealsReducer.recipes,
   categories: state.mealsReducer.categories,
@@ -72,6 +73,7 @@ const mapStateToProps = (state) => ({
   drinks: state.drinksReducer.drinks,
   lengthDrinks: state.drinksReducer.lengthDrink,
 });
+
 MealsRender.propTypes = {
   dispatch: PropTypes.func.isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
@@ -90,4 +92,5 @@ MealsRender.propTypes = {
     lengthMeals: PropTypes.number.isRequired,
   }).isRequired,
 }.isRequired;
+
 export default connect(mapStateToProps)(withRouter(MealsRender));

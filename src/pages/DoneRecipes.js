@@ -2,11 +2,10 @@ import Header from '../components/Header';
 
 function DoneRecipes() {
   return (
-    <main>
-      <Header pages isSearch={ false }>
-        <h1>Done Recipes</h1>
-      </Header>
-    </main>
+    <div>
+      <Header>DoneRecipes</Header>
+    </div>
   );
 }
+
 export default DoneRecipes;
