@@ -1,5 +1,4 @@
 import { screen, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
 import { renderWithRouterAndRedux } from './RenderWithL';
@@ -38,13 +37,25 @@ afterAll(() => {
 
 it('testa o arquivo RecipesDetails', async () => {
   const { history } = renderWithRouterAndRedux(<App />);
+
   act(() => {
-    history.push({ pathname: '/meals/52977' });
+    history.push('/meals/52977');
   });
   const image = await screen.findByRole('img');
+  expect(image).toBeInTheDocument();
+
+  const nome = await screen.findByTestId('recipe-title');
+  expect(nome).toBeInTheDocument();
 });
 
 it('testa o arquivo RecipesDetails', async () => {
-  renderWithRouterAndRedux(<RecipesDetails />, { initialEntries: ['drinks/13501'] });
+  const { history } = renderWithRouterAndRedux(<App />);
+
+  act(() => {
+    history.push('/drinks/13501');
+  });
   const image = await screen.findByRole('img');
+  expect(image).toBeInTheDocument();
+  const nome = await screen.findByTestId('recipe-title');
+  expect(nome).toBeInTheDocument();
 });
