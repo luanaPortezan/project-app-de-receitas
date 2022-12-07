@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
 class DoneRecipes extends React.Component {
@@ -43,6 +44,9 @@ class DoneRecipes extends React.Component {
     const { recipes, copied } = this.state;
     return (
       <div>
+        <Header pages isSearch={ false }>
+          <h1>Done Recipes</h1>
+        </Header>
         <div>
           <button
             type="button"

@@ -1,5 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
+import Footer from './Footer';
+import Header from '../components/Header';
 
 class Profile extends React.Component {
   constructor() {
@@ -40,6 +42,9 @@ class Profile extends React.Component {
     const { email } = this.state;
     return (
       <div>
+        <Header pages isSearch={ false }>
+          <h1>Profile</h1>
+        </Header>
         <p data-testid="profile-email">{email}</p>
         <button
           type="button"
@@ -65,6 +70,7 @@ class Profile extends React.Component {
           Logout
 
         </button>
+        <Footer />
       </div>
     );
   }

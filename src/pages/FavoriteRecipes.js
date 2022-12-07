@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import Header from '../components/Header';
 
 class FavoriteRecipes extends React.Component {
   constructor() {
@@ -47,6 +48,9 @@ class FavoriteRecipes extends React.Component {
     const { recipes, copied } = this.state;
     return (
       <div>
+        <Header pages isSearch={ false }>
+          <h1>Favorite Recipes</h1>
+        </Header>
         <button
           type="button"
           data-testid="filter-by-all-btn"
