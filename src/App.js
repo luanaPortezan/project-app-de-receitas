@@ -10,8 +10,6 @@ import Recipes from './pages/Recipes';
 
 function App() {
   return (
-
-    // <BrowserRouter>
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/drinks" component={ Recipes } />
@@ -24,7 +22,6 @@ function App() {
       <Route exact path="/done_recipes" component={ DoneRecipes } />
       <Route exact path="/favorite_recipes" component={ FavoriteRecipes } />
     </Switch>
-    // </BrowserRouter>
   );
 }
 
