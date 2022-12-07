@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import DrinksRender from '../components/DrinksRender';
 import { fetchCategories, fetchRecipes } from '../redux/actions';
 import MealsRender from '../components/MealsRender';
+
 import Footer from './Footer';
 
 class Recipes extends React.Component {
@@ -24,7 +25,6 @@ class Recipes extends React.Component {
   fetchAll = () => {
     const { dispatch, location } = this.props;
     if (location.pathname === '/meals') {
-      console.log(location);
       dispatch(fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list'));
       dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
     } else {
@@ -51,11 +51,19 @@ class Recipes extends React.Component {
 
   render() {
     const { loadingApi,
+
       categories } = this.props;
     if (loadingApi) return <p>Loading</p>;
     return (
       <div>
         <Header />
+      categories, location } = this.props;
+    if (loadingApi) return <p>Loading</p>;
+    return (
+      <div>
+        <Header pages isSearch>
+          {location.pathname === '/meals' ? <h1>Meals</h1> : <h1>Drinks</h1>}
+        </Header>
 
         <MealsRender />
 

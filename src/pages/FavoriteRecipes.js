@@ -2,9 +2,11 @@ import Header from '../components/Header';
 
 function FavoriteRecipes() {
   return (
-    <div>
-      <Header>FavoriteRecipes</Header>
-    </div>
+    <main>
+      <Header pages isSearch={ false }>
+        <h1>Favorite Recipes</h1>
+      </Header>
+    </main>
   );
 }
 

@@ -5,6 +5,7 @@ import { renderWithRouter } from './RenderWithL';
 import Footer from '../pages/Footer';
 import App from '../App';
 
+
 const pgTitleId = 'tile-page';
 const iconDrink = drinkIcon;
 
@@ -25,8 +26,10 @@ describe('Verifica a página Footer os componentes', () => {
 
     userEvent.click(iconDrink);
 
-    const drinkIcon = screen.getByTestId('drinks-bottom-btn');
-    expect(drinkIcon).toBeInTheDocument();
+
+     const drinkIcon = screen.getByTestId('drinks-bottom-btn');
+     expect(drinkIcon).toBeInTheDocument();
+
 
     const imgDrink = screen.getByTestId('drinkIcon');
     expect(imgDrink).toBeInTheDocument();
@@ -34,6 +37,7 @@ describe('Verifica a página Footer os componentes', () => {
     const linkApp = screen.getByText(/Página de receitas!/i);
     expect(linkApp).toBeInTheDocument();
   });
+
 
   it('Verifica se é redirecionado para a página Meals', () => {
     const { history } = renderWithRouter(<App />);
