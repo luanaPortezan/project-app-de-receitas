@@ -10,6 +10,7 @@ import Recipes from './pages/Recipes';
 
 function App() {
   return (
+
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/drinks" component={ Recipes } />
