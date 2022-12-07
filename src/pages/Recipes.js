@@ -49,11 +49,13 @@ class Recipes extends React.Component {
 
   render() {
     const { loadingApi,
-      categories } = this.props;
+      categories, location } = this.props;
     if (loadingApi) return <p>Loading</p>;
     return (
       <div>
-        <Header />
+        <Header pages isSearch>
+          {location.pathname === '/meals' ? <h1>Meals</h1> : <h1>Drinks</h1>}
+        </Header>
 
         <MealsRender />
 
