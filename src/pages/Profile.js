@@ -80,4 +80,5 @@ Profile.propTypes = {
   history: Proptypes.shape().isRequired,
 };
 
+
 export default Profile;
