@@ -15,6 +15,9 @@ function RecipesDetails(props) {
   const [sugesType, setSugesType] = useState('');
   const [ingredientes, setIngredientes] = useState([]);
   const [medidas, setMedidas] = useState([]);
+  const [startButton, setStartButton] = useState(true);
+  const [continueButton, setContinueButton] = useState(false);
+
   useEffect(() => {
     if (location.pathname.includes('/meals/')) {
       dispatch(fetchRecipe(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${params.id}`));
@@ -22,6 +25,22 @@ function RecipesDetails(props) {
     } else {
       dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
       dispatch(fetchRecipe(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${params.id}`));
+    }
+    if (JSON.parse(localStorage.getItem('doneRecipes'))) {
+      (JSON.parse(localStorage.getItem('doneRecipes'))).forEach((element) => {
+        if (element.id === params.id) {
+          setStartButton(false);
+        }
+      });
+    }
+    if (JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      Object.values((JSON.parse(localStorage.getItem('inProgressRecipes'))))
+        .forEach((element) => {
+          if (Object.keys(element)[0] === params.id) {
+            setStartButton(false);
+            setContinueButton(true);
+          }
+        });
     }
   }, []);
 
@@ -161,15 +180,28 @@ function RecipesDetails(props) {
               </Carousel.Item>
 
             </Carousel>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              style={ { position: 'fixed',
-                bottom: '0px' } }
-            >
-              Start Recipe
+            {startButton
+              && (
+                <button
+                  type="button"
+                  data-testid="start-recipe-btn"
+                  style={ { position: 'fixed',
+                    bottom: '0px' } }
+                >
+                  Start Recipe
 
-            </button>
+                </button>)}
+            {continueButton
+                && (
+                  <button
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    style={ { position: 'fixed',
+                      bottom: '0px' } }
+                  >
+                    Continue Recipe
+
+                  </button>)}
           </>
         )}
     </main>

@@ -1,5 +1,6 @@
 import { screen, act } from '@testing-library/react';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouterAndRedux } from './RenderWithL';
 import { recipes, drinks, singleMeal, singleDrink } from './helpers/mocksExporter';
@@ -41,11 +42,17 @@ it('testa o arquivo RecipesDetails', async () => {
   act(() => {
     history.push('/meals/52977');
   });
+
+  window.localStorage.setItem('doneRecipes', JSON.stringify([{ id: 52977 }]));
   const image = await screen.findByRole('img');
   expect(image).toBeInTheDocument();
 
   const nome = await screen.findByTestId('recipe-title');
   expect(nome).toBeInTheDocument();
+
+  const startButton = await screen.findByTestId('start-recipe-btn');
+  expect(startButton).toBeInTheDocument();
+  userEvent.click(startButton);
 });
 
 it('testa o arquivo RecipesDetails', async () => {
@@ -54,8 +61,13 @@ it('testa o arquivo RecipesDetails', async () => {
   act(() => {
     history.push('/drinks/13501');
   });
+
+  window.localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: { 13501: [] } }));
   const image = await screen.findByRole('img');
   expect(image).toBeInTheDocument();
   const nome = await screen.findByTestId('recipe-title');
   expect(nome).toBeInTheDocument();
+  const startButton = await screen.findByTestId('start-recipe-btn');
+  expect(startButton).toBeInTheDocument();
+  userEvent.click(startButton);
 });
