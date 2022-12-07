@@ -49,9 +49,9 @@ function RecipesDetails(props) {
   return (
     <main>
 
-      <Header pages isSearch={ false }>
+      {/* <Header pages isSearch={ false }>
         <h1>Recipes Details</h1>
-      </Header>
+      </Header> */}
       {loadingApi ? <h1>Loading</h1>
         : (
           <>
