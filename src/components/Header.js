@@ -39,7 +39,6 @@ function Header({ children, pages, isSearch }) {
       <div className="search">
         {search && <SearchBar />}
       </div>
-
     </header>
   );
 }
