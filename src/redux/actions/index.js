@@ -24,29 +24,21 @@ function failedRequest(error) {
 }
 
 export function fetchRecipes(url) {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(requestRecipes());
-    try {
-      const response = await fetch(url);
-      const json = await response.json();
-      return dispatch(getRecipes(json));
-    } catch (error) {
-      return dispatch(failedRequest(error));
-    }
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => dispatch(getRecipes(json)))
+      .catch((error) => dispatch(failedRequest(error)));
   };
 }
 
-// mudei pra assincrona pq não passava nos testes: fetchRecipes e fetchCategories
-
 export function fetchCategories(url) {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(requestCategories());
-    try {
-      const response = await fetch(url);
-      const json = await response.json();
-      return dispatch(getCategories(json));
-    } catch (error) {
-      return dispatch(failedRequest(error));
-    }
+    return fetch(url)
+      .then((response) => response.json())
+      .then((json) => dispatch(getCategories(json)))
+      .catch((error) => dispatch(failedRequest(error)));
   };
 }

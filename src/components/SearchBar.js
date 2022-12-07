@@ -23,24 +23,20 @@ function SearchBar() {
   const radioValue = store.getState().selectedReducer.inputSelected;
   const history = useHistory();
   const alert = 'Sorry, we haven\'t found any recipes for these filters.';
-
   useEffect(() => {
     const verifyRadio = () => {
       dispatch(inputSelected(inputRadio));
     };
     verifyRadio();
   }, [inputRadio, dispatch]);
-
   const dispatchReciepesMeals = async () => {
     if (history.location.pathname === '/meals') {
       if (radioValue === 'ingredient') {
         dispatch(reciepesSelect(await fetchByIngredient(storeValue)));
       }
-
       if (radioValue === 'name') {
         dispatch(reciepesSelect(await fetchByName(storeValue)));
       }
-
       if (radioValue === 'first-letter') {
         if (storeValue.length > 1) {
           global.alert('Your search must have only 1 (one) character');
@@ -50,11 +46,9 @@ function SearchBar() {
       }
     }
   };
-
   useEffect(() => {
     const f = async () => {
       await dispatchReciepesMeals();
-
       if (store.getState().selectedReducer.reciepes) {
         const Meals = store.getState().selectedReducer.reciepes.meals;
         if (Meals === null) {
@@ -69,20 +63,16 @@ function SearchBar() {
         ));
       }
     };
-
     f();
   }, [clickMeals, dispatch, history, store, dispatchReciepesMeals]);
-
   const dispatchReciepesDrinks = async () => {
     if (history.location.pathname === '/drinks') {
       if (radioValue === 'ingredient') {
         dispatch(reciepesSelect(await fetchByIngredientD(storeValue)));
       }
-
       if (radioValue === 'name') {
         dispatch(reciepesSelect(await fetchByNameD(storeValue)));
       }
-
       if (radioValue === 'first-letter') {
         if (storeValue.length > 1) {
           global.alert('Your search must have only 1 (one) character');
@@ -95,7 +85,6 @@ function SearchBar() {
   useEffect(() => {
     const f = async () => {
       await dispatchReciepesDrinks();
-
       if (store.getState().selectedReducer.reciepes) {
         const Drinks = store.getState().selectedReducer.reciepes.drinks;
         if (Drinks === null) {
@@ -111,23 +100,18 @@ function SearchBar() {
       }
     };
     f();
-  }, [clickDrinks, dispatch, history, store]);
-
+  }, [clickDrinks, dispatch, history, store, dispatchReciepesDrinks]);
   const handleClick = () => {
     if (history.location.pathname === '/drinks') setClickDrinks(!clickDrinks);
     if (history.location.pathname === '/meals') setClickMeals(!clickMeals);
   };
-
   return (
     <>
-
       <input
         id="search-input"
         type="input"
-        value={ searchInput }
         data-testid="search-input"
       />
-
       <label htmlFor="ingredient">
         Ingredient
         <input
@@ -139,7 +123,6 @@ function SearchBar() {
           onClick={ ({ target }) => setInputRadio(target.value) }
         />
       </label>
-
       <label htmlFor="name">
         Name
         <input
@@ -151,7 +134,6 @@ function SearchBar() {
           onClick={ ({ target }) => setInputRadio(target.value) }
         />
       </label>
-
       <label htmlFor="first-letter">
         First letter
         <input
@@ -163,7 +145,6 @@ function SearchBar() {
           onClick={ ({ target }) => setInputRadio(target.value) }
         />
       </label>
-
       <button
         type="button"
         data-testid="exec-search-btn"
@@ -171,9 +152,7 @@ function SearchBar() {
       >
         Search
       </button>
-
     </>
   );
 }
-
 export default SearchBar;

@@ -6,7 +6,7 @@ function Profile() {
   return (
     <>
       <main>
-        <Header pages="profile">
+        <Header pages isSearch={ false }>
           <h1>Profile</h1>
         </Header>
       </main>
@@ -14,5 +14,4 @@ function Profile() {
     </>
   );
 }
-
 export default Profile;

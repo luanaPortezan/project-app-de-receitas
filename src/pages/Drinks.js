@@ -3,8 +3,8 @@ import { useStore } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
-// import Recipes from './Recipes';
 import Footer from './Footer';
+// import Recipes from './Recipes';
 
 function Drinks() {
   const store = useStore();

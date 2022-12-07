@@ -63,15 +63,12 @@ class Login extends React.Component {
           onClick={ this.buttonClickStorage }
         >
           Enter
-
         </button>
       </div>
     );
   }
 }
-
 Login.propTypes = {
   history: Proptypes.shape().isRequired,
 };
-
 export default Login;
