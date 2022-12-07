@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
@@ -47,11 +47,11 @@ function RecipesDetails(props) {
   useEffect(() => {
     if (recipe.meals) {
       setReceita(recipe.meals[0]);
-      setType('Meal');
+      setType(['Meal', 'meals']);
       setSugesType(['drinks', 'Drink']);
     } else if (recipe.drinks) {
       setReceita(recipe.drinks[0]);
-      setType('Drink');
+      setType(['Drink', 'drinks']);
       setSugesType(['meals', 'Meal']);
     }
   }, [recipe]);
@@ -76,13 +76,13 @@ function RecipesDetails(props) {
           <>
             <img
               data-testid="recipe-photo"
-              src={ receita[`str${type}Thumb`] }
-              alt={ receita[`str${type}`] }
+              src={ receita[`str${type[0]}Thumb`] }
+              alt={ receita[`str${type[0]}`] }
             />
-            <h1 data-testid="recipe-title">{receita[`str${type}`]}</h1>
-            {(type === 'Meal')
+            <h1 data-testid="recipe-title">{receita[`str${type[0]}`]}</h1>
+            {(type[0] === 'Meal')
               && <p data-testid="recipe-category">{receita.strCategory}</p>}
-            {(type === 'Drink')
+            {(type[0] === 'Drink')
               && <p data-testid="recipe-category">{receita.strAlcoholic}</p>}
             {Object.values(ingredientes)
               .map((ingrediente, index) => (
@@ -182,15 +182,18 @@ function RecipesDetails(props) {
             </Carousel>
             {startButton
               && (
-                <button
-                  type="button"
-                  data-testid="start-recipe-btn"
-                  style={ { position: 'fixed',
-                    bottom: '0px' } }
-                >
-                  Start Recipe
+                <Link to={ `${params.id}/in-progress` }>
+                  <button
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    style={ { position: 'fixed',
+                      bottom: '0px' } }
+                  >
+                    Start Recipe
+                  </button>
 
-                </button>)}
+                </Link>
+              )}
             {continueButton
                 && (
                   <button
