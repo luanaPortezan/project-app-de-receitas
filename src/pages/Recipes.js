@@ -7,6 +7,8 @@ import DrinksRender from '../components/DrinksRender';
 import { fetchCategories, fetchRecipes } from '../redux/actions';
 import MealsRender from '../components/MealsRender';
 
+import Footer from './Footer';
+
 class Recipes extends React.Component {
   constructor() {
     super();
@@ -49,11 +51,14 @@ class Recipes extends React.Component {
 
   render() {
     const { loadingApi,
-      categories } = this.props;
+      categories,
+      location } = this.props;
     if (loadingApi) return <p>Loading</p>;
     return (
       <div>
-        <Header />
+        <Header pages isSearch>
+          {location.pathname === '/meals' ? <h1>Meals</h1> : <h1>Drinks</h1>}
+        </Header>
 
         <MealsRender />
 
@@ -79,6 +84,7 @@ class Recipes extends React.Component {
           })}
 
         <DrinksRender />
+        <Footer />
 
         {categories.drinks
           && categories.drinks.map((categorie, index) => {
