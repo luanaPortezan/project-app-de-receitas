@@ -8,7 +8,6 @@ import '../styles/Header.css';
 
 function Header({ children, pages, isSearch }) {
   const [search, setSearch] = useState(false);
-  // const history = useHistory();
 
   return (
     <header className="header">
@@ -32,13 +31,14 @@ function Header({ children, pages, isSearch }) {
           <img
             src={ searchIcon }
             data-testid="search-top-btn"
-            alt="Ícone de profile"
+            alt="Ícone de busca"
           />
         </button>
       )}
 
-      {search && <SearchBar />}
-
+      <div className="search">
+        {search && <SearchBar />}
+      </div>
     </header>
   );
 }
