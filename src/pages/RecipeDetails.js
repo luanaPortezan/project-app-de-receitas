@@ -180,7 +180,9 @@ function RecipesDetails(props) {
               </Carousel.Item>
 
             </Carousel>
-            {startButton
+            <div>
+
+              {startButton
               && (
                 <Link to={ `${params.id}/in-progress` }>
                   <button
@@ -194,17 +196,32 @@ function RecipesDetails(props) {
 
                 </Link>
               )}
-            {continueButton
+              {continueButton
                 && (
-                  <button
-                    type="button"
-                    data-testid="start-recipe-btn"
-                    style={ { position: 'fixed',
-                      bottom: '0px' } }
-                  >
-                    Continue Recipe
+                  <Link to={ `${params.id}/in-progress` }>
+                    <button
+                      type="button"
+                      data-testid="start-recipe-btn"
+                      style={ { position: 'fixed',
+                        bottom: '0px' } }
+                    >
+                      Continue Recipe
 
-                  </button>)}
+                    </button>
+                  </Link>)}
+            </div>
+            <button
+              type="button"
+              data-testid="share-btn"
+            >
+              Compartilhar
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+            >
+              Favoritar
+            </button>
           </>
         )}
     </main>
