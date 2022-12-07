@@ -75,8 +75,8 @@ class DoneRecipes extends React.Component {
         </div>
         <div>
           {copied && <p>Link copied!</p>}
-          {
-            recipes.map((rec, index) => (
+          {recipes
+            && recipes.map((rec, index) => (
               <div
                 key={ index }
               >
@@ -131,8 +131,7 @@ class DoneRecipes extends React.Component {
                   </p>
                 ))}
               </div>
-            ))
-          }
+            ))}
         </div>
       </div>
     );

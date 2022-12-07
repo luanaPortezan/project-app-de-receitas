@@ -76,7 +76,8 @@ class FavoriteRecipes extends React.Component {
 
         </button>
         {copied && <p>Link copied!</p>}
-        {recipes.map((recipe, index) => (
+        {recipes
+        && recipes.map((recipe, index) => (
           <div key={ index }>
             <Link to={ `/${rec.type}s/${rec.name}` }>
               <img
