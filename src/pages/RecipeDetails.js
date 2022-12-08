@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Carousel from 'react-bootstrap/Carousel';
-// import Header from '../components/Header';
+import clipboardCopy from 'clipboard-copy';
 import { fetchRecipe, fetchRecipes } from '../redux/actions';
 import 'bootstrap/dist/css/bootstrap.css';
+import shareIcon from '../images/shareIcon.svg';
+import SugestionCarousel from '../components/SugestionCarousel';
 
 function RecipesDetails(props) {
   const params = useParams();
-  const { dispatch, location, recipe, loadingApi, sugestion } = props;
+  const { dispatch, location, recipe, loadingApi } = props;
   const [receita, setReceita] = useState([]);
   const [type, setType] = useState('');
-  const [sugesType, setSugesType] = useState('');
   const [ingredientes, setIngredientes] = useState([]);
   const [medidas, setMedidas] = useState([]);
+  const [startButton, setStartButton] = useState(true);
+  const [continueButton, setContinueButton] = useState(false);
+  const [copiado, setCopiado] = useState(false);
+
   useEffect(() => {
     if (location.pathname.includes('/meals/')) {
       dispatch(fetchRecipe(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${params.id}`));
@@ -23,17 +27,31 @@ function RecipesDetails(props) {
       dispatch(fetchRecipes('https://www.themealdb.com/api/json/v1/1/search.php?s='));
       dispatch(fetchRecipe(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${params.id}`));
     }
+    if (JSON.parse(localStorage.getItem('doneRecipes'))) {
+      (JSON.parse(localStorage.getItem('doneRecipes'))).forEach((element) => {
+        if (element.id === params.id) {
+          setStartButton(false);
+        }
+      });
+    }
+    if (JSON.parse(localStorage.getItem('inProgressRecipes'))) {
+      Object.values((JSON.parse(localStorage.getItem('inProgressRecipes'))))
+        .forEach((element) => {
+          if (Object.keys(element)[0] === params.id) {
+            setStartButton(false);
+            setContinueButton(true);
+          }
+        });
+    }
   }, []);
 
   useEffect(() => {
     if (recipe.meals) {
       setReceita(recipe.meals[0]);
-      setType('Meal');
-      setSugesType(['drinks', 'Drink']);
+      setType(['Meal', 'meals']);
     } else if (recipe.drinks) {
       setReceita(recipe.drinks[0]);
-      setType('Drink');
-      setSugesType(['meals', 'Meal']);
+      setType(['Drink', 'drinks']);
     }
   }, [recipe]);
 
@@ -46,24 +64,43 @@ function RecipesDetails(props) {
       .reduce((cur, key) => Object.assign(cur, { [key]: receita[key] }), []));
   }, [receita]);
 
+  useEffect(() => {
+    const time = 3000;
+    setTimeout(() => {
+      setCopiado(false);
+    }, time);
+  }, [copiado]);
+
+  const favoritar = () => {
+    let existingFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (existingFavorites === null) existingFavorites = [];
+    const recipeObject = {
+      id: params.id,
+      type: (type[0].toLowerCase()),
+      nationality: (receita.strArea ? receita.strArea : ''),
+      category: receita.strCategory,
+      alcoholicOrNot: (receita.strAlcoholic ? receita.strAlcoholic : ''),
+      name: receita[`str${type[0]}`],
+      image: receita[`str${type[0]}Thumb`],
+    };
+    existingFavorites.push(recipeObject);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(existingFavorites));
+  };
+
   return (
     <main>
-
-      {/* <Header pages isSearch={ false }>
-        <h1>Recipes Details</h1>
-      </Header> */}
       {loadingApi ? <h1>Loading</h1>
         : (
           <>
             <img
               data-testid="recipe-photo"
-              src={ receita[`str${type}Thumb`] }
-              alt={ receita[`str${type}`] }
+              src={ receita[`str${type[0]}Thumb`] }
+              alt={ receita[`str${type[0]}`] }
             />
-            <h1 data-testid="recipe-title">{receita[`str${type}`]}</h1>
-            {(type === 'Meal')
+            <h1 data-testid="recipe-title">{receita[`str${type[0]}`]}</h1>
+            {(type[0] === 'Meal')
               && <p data-testid="recipe-category">{receita.strCategory}</p>}
-            {(type === 'Drink')
+            {(type[0] === 'Drink')
               && <p data-testid="recipe-category">{receita.strAlcoholic}</p>}
             {Object.values(ingredientes)
               .map((ingrediente, index) => (
@@ -91,85 +128,58 @@ function RecipesDetails(props) {
               allowFullScreen
               title="Embedded youtube"
             />}
-            <Carousel>
-              <Carousel.Item>
-                <div data-testid="0-recommendation-card">
-                  <h3
-                    data-testid="0-recommendation-title"
+            <SugestionCarousel location={ location } />
+            <div>
+
+              {startButton
+              && (
+                <Link to={ `${params.id}/in-progress` }>
+                  <button
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    style={ { position: 'fixed',
+                      bottom: '0px' } }
                   >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[0][`str${sugesType[1]}`]}
+                    Start Recipe
+                  </button>
 
-                  </h3>
-                </div>
-                <div data-testid="1-recommendation-card">
-                  <h3
-                    data-testid="1-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[1][`str${sugesType[1]}`]}
+                </Link>
+              )}
+              {continueButton
+                && (
+                  <Link to={ `${params.id}/in-progress` }>
+                    <button
+                      type="button"
+                      data-testid="start-recipe-btn"
+                      style={ { position: 'fixed',
+                        bottom: '0px' } }
+                    >
+                      Continue Recipe
 
-                  </h3>
-                </div>
-                {' '}
-
-              </Carousel.Item>
-              <Carousel.Item>
-                <div data-testid="2-recommendation-card">
-                  <h3
-                    data-testid="2-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[2][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                <div data-testid="3-recommendation-card">
-                  <h3
-                    data-testid="3-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[3][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                {' '}
-
-              </Carousel.Item>
-              {' '}
-              <Carousel.Item>
-                <div data-testid="4-recommendation-card">
-                  <h3
-                    data-testid="4-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[4][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                <div data-testid="5-recommendation-card">
-                  <h3
-                    data-testid="5-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[5][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                {' '}
-
-              </Carousel.Item>
-
-            </Carousel>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              style={ { position: 'fixed',
-                bottom: '0px' } }
-            >
-              Start Recipe
-
-            </button>
+                    </button>
+                  </Link>)}
+            </div>
+            <div style={ { paddingLeft: '120px' } }>
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => {
+                  clipboardCopy(`http://localhost:3000${location.pathname}`);
+                  setCopiado(true);
+                } }
+              >
+                <img src={ shareIcon } alt="Compartilhar" />
+              </button>
+              {copiado
+            && <p>Link copied!</p>}
+              <button
+                type="button"
+                data-testid="favorite-btn"
+                onClick={ favoritar }
+              >
+                Favoritar
+              </button>
+            </div>
           </>
         )}
     </main>
@@ -177,7 +187,6 @@ function RecipesDetails(props) {
 }
 
 const mapStateToProps = (state) => ({
-  sugestion: state.mealsReducer.recipes,
   recipe: state.mealsReducer.recipe,
   loadingApi: state.mealsReducer.loadingApi,
 });
@@ -186,9 +195,6 @@ RecipesDetails.propTypes = {
   dispatch: PropTypes.func.isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
   recipe: PropTypes.shape({
-    meals: PropTypes.arrayOf,
-    drinks: PropTypes.arrayOf }).isRequired,
-  sugestion: PropTypes.shape({
     meals: PropTypes.arrayOf,
     drinks: PropTypes.arrayOf }).isRequired,
   loadingApi: PropTypes.bool.isRequired,
