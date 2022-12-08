@@ -2,21 +2,22 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Carousel from 'react-bootstrap/Carousel';
-// import Header from '../components/Header';
+import clipboardCopy from 'clipboard-copy';
 import { fetchRecipe, fetchRecipes } from '../redux/actions';
 import 'bootstrap/dist/css/bootstrap.css';
+import shareIcon from '../images/shareIcon.svg';
+import SugestionCarousel from '../components/SugestionCarousel';
 
 function RecipesDetails(props) {
   const params = useParams();
-  const { dispatch, location, recipe, loadingApi, sugestion } = props;
+  const { dispatch, location, recipe, loadingApi } = props;
   const [receita, setReceita] = useState([]);
   const [type, setType] = useState('');
-  const [sugesType, setSugesType] = useState('');
   const [ingredientes, setIngredientes] = useState([]);
   const [medidas, setMedidas] = useState([]);
   const [startButton, setStartButton] = useState(true);
   const [continueButton, setContinueButton] = useState(false);
+  const [copiado, setCopiado] = useState(false);
 
   useEffect(() => {
     if (location.pathname.includes('/meals/')) {
@@ -48,11 +49,9 @@ function RecipesDetails(props) {
     if (recipe.meals) {
       setReceita(recipe.meals[0]);
       setType(['Meal', 'meals']);
-      setSugesType(['drinks', 'Drink']);
     } else if (recipe.drinks) {
       setReceita(recipe.drinks[0]);
       setType(['Drink', 'drinks']);
-      setSugesType(['meals', 'Meal']);
     }
   }, [recipe]);
 
@@ -64,6 +63,13 @@ function RecipesDetails(props) {
       .filter((key) => key.includes('Measure'))
       .reduce((cur, key) => Object.assign(cur, { [key]: receita[key] }), []));
   }, [receita]);
+
+  useEffect(() => {
+    const time = 3000;
+    setTimeout(() => {
+      setCopiado(false);
+    }, time);
+  }, [copiado]);
 
   return (
     <main>
@@ -110,76 +116,7 @@ function RecipesDetails(props) {
               allowFullScreen
               title="Embedded youtube"
             />}
-            <Carousel>
-              <Carousel.Item>
-                <div data-testid="0-recommendation-card">
-                  <h3
-                    data-testid="0-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[0][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                <div data-testid="1-recommendation-card">
-                  <h3
-                    data-testid="1-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[1][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                {' '}
-
-              </Carousel.Item>
-              <Carousel.Item>
-                <div data-testid="2-recommendation-card">
-                  <h3
-                    data-testid="2-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[2][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                <div data-testid="3-recommendation-card">
-                  <h3
-                    data-testid="3-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[3][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                {' '}
-
-              </Carousel.Item>
-              {' '}
-              <Carousel.Item>
-                <div data-testid="4-recommendation-card">
-                  <h3
-                    data-testid="4-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[4][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                <div data-testid="5-recommendation-card">
-                  <h3
-                    data-testid="5-recommendation-title"
-                  >
-                    {sugestion[`${sugesType[0]}`]
-                    && (sugestion[`${sugesType[0]}`])[5][`str${sugesType[1]}`]}
-
-                  </h3>
-                </div>
-                {' '}
-
-              </Carousel.Item>
-
-            </Carousel>
+            <SugestionCarousel location={ location } />
             <div>
 
               {startButton
@@ -210,18 +147,26 @@ function RecipesDetails(props) {
                     </button>
                   </Link>)}
             </div>
-            <button
-              type="button"
-              data-testid="share-btn"
-            >
-              Compartilhar
-            </button>
-            <button
-              type="button"
-              data-testid="favorite-btn"
-            >
-              Favoritar
-            </button>
+            <div style={ { paddingLeft: '120px' } }>
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => {
+                  clipboardCopy(`http://localhost:3000${location.pathname}`);
+                  setCopiado(true);
+                } }
+              >
+                <img src={ shareIcon } alt="Compartilhar" />
+              </button>
+              {copiado
+            && <p>Link copied!</p>}
+              <button
+                type="button"
+                data-testid="favorite-btn"
+              >
+                Favoritar
+              </button>
+            </div>
           </>
         )}
     </main>
@@ -229,7 +174,6 @@ function RecipesDetails(props) {
 }
 
 const mapStateToProps = (state) => ({
-  sugestion: state.mealsReducer.recipes,
   recipe: state.mealsReducer.recipe,
   loadingApi: state.mealsReducer.loadingApi,
 });
@@ -238,9 +182,6 @@ RecipesDetails.propTypes = {
   dispatch: PropTypes.func.isRequired,
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
   recipe: PropTypes.shape({
-    meals: PropTypes.arrayOf,
-    drinks: PropTypes.arrayOf }).isRequired,
-  sugestion: PropTypes.shape({
     meals: PropTypes.arrayOf,
     drinks: PropTypes.arrayOf }).isRequired,
   loadingApi: PropTypes.bool.isRequired,
