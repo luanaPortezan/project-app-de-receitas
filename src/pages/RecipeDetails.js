@@ -6,6 +6,8 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchRecipe, fetchRecipes } from '../redux/actions';
 import 'bootstrap/dist/css/bootstrap.css';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import SugestionCarousel from '../components/SugestionCarousel';
 
 function RecipesDetails(props) {
@@ -18,6 +20,7 @@ function RecipesDetails(props) {
   const [startButton, setStartButton] = useState(true);
   const [continueButton, setContinueButton] = useState(false);
   const [copiado, setCopiado] = useState(false);
+  const [favoriteSrc, setFavoriteSrc] = useState(whiteHeartIcon);
 
   useEffect(() => {
     if (location.pathname.includes('/meals/')) {
@@ -29,7 +32,7 @@ function RecipesDetails(props) {
     }
     if (JSON.parse(localStorage.getItem('doneRecipes'))) {
       (JSON.parse(localStorage.getItem('doneRecipes'))).forEach((element) => {
-        if (element.id === params.id) {
+        if (element.id === parseInt(params.id, 10)) {
           setStartButton(false);
         }
       });
@@ -42,6 +45,15 @@ function RecipesDetails(props) {
             setContinueButton(true);
           }
         });
+    }
+    const existingFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (existingFavorites) {
+      existingFavorites.forEach((element) => {
+        if (parseInt(element.id, 10) === parseInt(params.id, 10)) {
+          console.log('deu');
+          setFavoriteSrc(blackHeartIcon);
+        }
+      });
     }
   }, []);
 
@@ -72,6 +84,11 @@ function RecipesDetails(props) {
   }, [copiado]);
 
   const favoritar = () => {
+    if (favoriteSrc === whiteHeartIcon) {
+      setFavoriteSrc(blackHeartIcon);
+    } else {
+      setFavoriteSrc(whiteHeartIcon);
+    }
     let existingFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (existingFavorites === null) existingFavorites = [];
     const recipeObject = {
@@ -176,8 +193,10 @@ function RecipesDetails(props) {
                 type="button"
                 data-testid="favorite-btn"
                 onClick={ favoritar }
+                src={ favoriteSrc }
               >
-                Favoritar
+                Favorita
+
               </button>
             </div>
           </>

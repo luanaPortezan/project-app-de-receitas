@@ -110,6 +110,7 @@ class Recipes extends React.Component {
           data-testid="All-category-filter"
           type="button"
           onClick={ this.fetchAll }
+          style={ { paddingBottom: '120px' } }
         >
           All
 

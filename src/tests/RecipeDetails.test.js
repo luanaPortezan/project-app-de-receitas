@@ -6,6 +6,11 @@ import { renderWithRouterAndRedux } from './RenderWithL';
 import { recipes, drinks, singleMeal, singleDrink } from './helpers/mocksExporter';
 
 const unmockedFetch = global.fetch;
+const mealsLink = '/meals/52977';
+const startRecipeBtn = 'start-recipe-btn';
+const recipePhoto = 'recipe-photo';
+const recipeTitle = 'recipe-title';
+const favoriteBtn = 'favorite-btn';
 
 beforeAll(() => {
   global.fetch = (input) => {
@@ -36,38 +41,98 @@ afterAll(() => {
   global.fetch = unmockedFetch;
 });
 
-it('testa o arquivo RecipesDetails', async () => {
+it('testa o arquivo RecipesDetails1', async () => {
   const { history } = renderWithRouterAndRedux(<App />);
+  window.localStorage.setItem('doneRecipes', JSON.stringify([{ id: 52977 }]));
+  window.localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: 52977 }]));
 
   act(() => {
-    history.push('/meals/52977');
+    history.push(mealsLink);
   });
 
-  window.localStorage.setItem('doneRecipes', JSON.stringify([{ id: 52977 }]));
-  const image = await screen.findByRole('img');
+  const image = await screen.findByTestId(recipePhoto);
   expect(image).toBeInTheDocument();
 
-  const nome = await screen.findByTestId('recipe-title');
+  const nome = await screen.findByTestId(recipeTitle);
   expect(nome).toBeInTheDocument();
-
-  const startButton = await screen.findByTestId('start-recipe-btn');
-  expect(startButton).toBeInTheDocument();
-  userEvent.click(startButton);
 });
 
-it('testa o arquivo RecipesDetails', async () => {
+it('testa o arquivo RecipesDetails2', async () => {
   const { history } = renderWithRouterAndRedux(<App />);
+  window.localStorage.setItem('doneRecipes', JSON.stringify([{ id: 5297 }]));
+  window.localStorage.setItem('favoriteRecipes', JSON.stringify([{ id: 5297 }]));
+
+  act(() => {
+    history.push(mealsLink);
+  });
+
+  const image = await screen.findByTestId(recipePhoto);
+  expect(image).toBeInTheDocument();
+
+  const nome = await screen.findByTestId(recipeTitle);
+  expect(nome).toBeInTheDocument();
+});
+
+it('testa o arquivo RecipesDetails3', async () => {
+  const { history } = renderWithRouterAndRedux(<App />);
+  window.localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: { 13501: [] } }));
 
   act(() => {
     history.push('/drinks/13501');
   });
 
-  window.localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: { 13501: [] } }));
-  const image = await screen.findByRole('img');
+  const image = await screen.findByTestId(recipePhoto);
   expect(image).toBeInTheDocument();
-  const nome = await screen.findByTestId('recipe-title');
+  const nome = await screen.findByTestId(recipeTitle);
   expect(nome).toBeInTheDocument();
-  const startButton = await screen.findByTestId('start-recipe-btn');
+  const startButton = await screen.findByTestId(startRecipeBtn);
   expect(startButton).toBeInTheDocument();
   userEvent.click(startButton);
+  const favoriteButton = await screen.findByTestId(favoriteBtn);
+  userEvent.click(favoriteButton);
+  setTimeout(userEvent.click(favoriteButton), 5000);
+});
+
+it('testa o arquivo RecipesDetails4', async () => {
+  const { history } = renderWithRouterAndRedux(<App />);
+  window.localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: { 1350: [] } }));
+
+  act(() => {
+    history.push('/drinks/13501');
+  });
+
+  const image = await screen.findByTestId(recipePhoto);
+  expect(image).toBeInTheDocument();
+  const nome = await screen.findByTestId(recipeTitle);
+  expect(nome).toBeInTheDocument();
+  const startButton = await screen.findByTestId(startRecipeBtn);
+  expect(startButton).toBeInTheDocument();
+  userEvent.click(startButton);
+  const favoriteButton = await screen.findByTestId(favoriteBtn);
+  userEvent.click(favoriteButton);
+  setTimeout(userEvent.click(favoriteButton), 5000);
+});
+
+it('testa o arquivo RecipesDetails5', async () => {
+  window.document.execCommand = jest.fn(() => true);
+  const { history } = renderWithRouterAndRedux(<App />);
+  window.localStorage.setItem('inProgressRecipes', JSON.stringify({ meals: { 52977: [], 13501: [] } }));
+
+  act(() => {
+    history.push(mealsLink);
+  });
+
+  const image = await screen.findByTestId(recipePhoto);
+  expect(image).toBeInTheDocument();
+  const nome = await screen.findByTestId(recipeTitle);
+  expect(nome).toBeInTheDocument();
+  const startButton = await screen.findByTestId(startRecipeBtn);
+  expect(startButton).toBeInTheDocument();
+  userEvent.click(startButton);
+  const favoriteButton = await screen.findByTestId(favoriteBtn);
+  userEvent.click(favoriteButton);
+  setTimeout(userEvent.click(favoriteButton), 5000);
+
+  const shareButton = await screen.findByTestId('share-btn');
+  userEvent.click(shareButton);
 });
