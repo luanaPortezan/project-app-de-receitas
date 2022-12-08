@@ -17,12 +17,10 @@ class Profile extends React.Component {
 
   requestLocalStorage = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      const { email } = user;
-      this.setState({
-        email,
-      });
-    }
+    const { email } = user;
+    this.setState({
+      email,
+    });
   };
 
   buttonDoneRecipes = () => {
