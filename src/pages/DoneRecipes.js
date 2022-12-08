@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import copy from 'clipboard-copy';
+import clipboardCopy from 'clipboard-copy';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -80,7 +80,7 @@ class DoneRecipes extends React.Component {
               <div
                 key={ index }
               >
-                <Link to={ `/${rec.type}s/${rec.name}` }>
+                <Link to={ `${rec.type}s/${rec.id}` }>
                   <img
                     data-testid={ `${index}-horizontal-image` }
                     src={ rec.image }
@@ -96,7 +96,7 @@ class DoneRecipes extends React.Component {
                 <button
                   type="button"
                   onClick={ () => {
-                    copy(`http://localhost:3000/${rec.type}s/${rec.id}`);
+                    clipboardCopy(`http://localhost:3000/${rec.type}s/${rec.id}`);
                     this.setState({
                       copied: true,
                     });
@@ -110,24 +110,23 @@ class DoneRecipes extends React.Component {
                 </button>
                 {rec.type === 'drink' ? (
                   <p data-testid={ `${index}-horizontal-top-text` }>
-                    {rec.alcoholicOrNot}
+                    {`${rec.alcoholicOrNot}`}
                   </p>
-                )
-                  : (
-                    <h5 data-testid={ `${index}-horizontal-top-text` }>
-                      {rec.nationality}
-                      {' '}
-                      -
-                      {' '}
-                      {rec.category}
-                    </h5>
-                  )}
-                {recipes.tags.map((recTag, index1) => (
+                ) : (
+                  <h5 data-testid={ `${index}-horizontal-top-text` }>
+                    {rec.nationality}
+                    {' '}
+                    -
+                    {' '}
+                    {rec.category}
+                  </h5>
+                )}
+                {rec.tags.map((tag1) => (
                   <p
-                    key={ index1 }
-                    data-testid={ `${index}-${recTag}-horizontal-tag` }
+                    data-testid={ `${index}-${tag1}-horizontal-tag` }
+                    key={ tag1 }
                   >
-                    {recTag}
+                    {tag1}
                   </p>
                 ))}
               </div>
