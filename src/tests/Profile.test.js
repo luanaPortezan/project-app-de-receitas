@@ -2,13 +2,13 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { renderWithRouter } from './RenderWithL';
+import { renderWithRouterAndRedux } from './RenderWithL';
 
 const mockEmail = 'teste.teste@hotmail.com';
 
 describe('Testa a pagina Profile', () => {
-  it('verifica se tudo é renderizado corretamente', () => {
-    const { history } = renderWithRouter(<App />);
+  it('verifica se tudo é renderizado corretamente', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     const inputMail = screen.getByPlaceholderText(/email/i);
     userEvent.type(inputMail, mockEmail);
 
@@ -20,7 +20,7 @@ describe('Testa a pagina Profile', () => {
 
     userEvent.click(botao);
 
-    const botaoProf = screen.getByText(/profile/i);
+    const botaoProf = await screen.findByAltText('Ícone de profile');
     userEvent.click(botaoProf);
 
     const emailValue = screen.getByText(/teste.teste/i);
@@ -41,8 +41,8 @@ describe('Testa a pagina Profile', () => {
     expect(pathname).toBe('/done-recipes');
   });
 
-  it('verifica se clicar no botao favorite direciona para pagina correta', () => {
-    const { history } = renderWithRouter(<App />);
+  it('verifica se clicar no botao favorite direciona para pagina correta', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     const inputMail = screen.getByPlaceholderText(/email/i);
     userEvent.type(inputMail, mockEmail);
 
@@ -54,7 +54,7 @@ describe('Testa a pagina Profile', () => {
 
     userEvent.click(botao);
 
-    const botaoProf = screen.getByText(/profile/i);
+    const botaoProf = await screen.findByTestId('profile-top-btn');
     userEvent.click(botaoProf);
 
     const emailValue = screen.getByText(/teste.teste/i);
@@ -75,8 +75,8 @@ describe('Testa a pagina Profile', () => {
     expect(pathname).toBe('/favorite-recipes');
   });
 
-  it('verifica se clicar no botao de logout direciona para pagina correta', () => {
-    const { history } = renderWithRouter(<App />);
+  it('verifica se clicar no botao de logout direciona para pagina correta', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
     const inputMail = screen.getByPlaceholderText(/email/i);
     userEvent.type(inputMail, mockEmail);
 
@@ -88,7 +88,7 @@ describe('Testa a pagina Profile', () => {
 
     userEvent.click(botao);
 
-    const botaoProf = screen.getByText(/profile/i);
+    const botaoProf = await screen.findByTestId('profile-top-btn');
     userEvent.click(botaoProf);
 
     const emailValue = screen.getByText(/teste.teste/i);
