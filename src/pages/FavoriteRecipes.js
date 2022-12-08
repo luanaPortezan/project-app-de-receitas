@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import copy from 'clipboard-copy';
+import clipboardCopy from 'clipboard-copy';
 import Header from '../components/Header';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class FavoriteRecipes extends React.Component {
   constructor() {
@@ -24,24 +26,29 @@ class FavoriteRecipes extends React.Component {
   };
 
   onclickMeal = () => {
-    const { recipes } = this.state;
-    const newRecipe = recipes.filter((reci) => reci.type === 'meal');
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newRecipe = favRecipes.filter((reci) => reci.type === 'meal');
     this.setState({
       recipes: newRecipe,
     });
   };
 
   onclickDrink = () => {
-    const { recipes } = this.state;
-    const newRecipe = recipes.filter((reci1) => reci1.type === 'drink');
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newRecipe = favRecipes.filter((reci1) => reci1.type === 'drink');
     this.setState({
       recipes: newRecipe,
     });
   };
 
-  buttonRemoveFav = () => {
+  buttonRemoveFav = (id) => {
     const { recipes } = this.state;
-    localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
+    const novoRec = recipes.filter((recps) => recps.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(novoRec));
+
+    this.setState({
+      recipes: novoRec,
+    });
   };
 
   render() {
@@ -79,7 +86,7 @@ class FavoriteRecipes extends React.Component {
         {recipes
         && recipes.map((recipe, index) => (
           <div key={ index }>
-            <Link to={ `/${rec.type}s/${rec.name}` }>
+            <Link to={ `${recipe.type}s/${recipe.id}` }>
               <img
                 data-testid={ `${index}-horizontal-image` }
                 src={ recipe.image }
@@ -103,7 +110,7 @@ class FavoriteRecipes extends React.Component {
             <button
               type="button"
               onClick={ () => {
-                copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
+                clipboardCopy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
                 this.setState({
                   copied: true,
                 });
@@ -117,15 +124,13 @@ class FavoriteRecipes extends React.Component {
             </button>
             <button
               type="button"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              onClick={ () => {
-                const novoRec = recipes.filter((recps) => recps.id !== recipe.id);
-                this.setState({
-                  recipes: novoRec,
-                }, this.buttonRemoveFav());
-              } }
+              onClick={ () => this.buttonRemoveFav(recipe.id) }
             >
-              Desfavoritar
+              <img
+                src={ blackHeartIcon }
+                alt="black heart icon"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+              />
             </button>
           </div>
         ))}

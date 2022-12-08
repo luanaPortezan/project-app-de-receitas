@@ -25,16 +25,16 @@ class DoneRecipes extends React.Component {
   };
 
   onclickMeal = () => {
-    const { recipes } = this.state;
-    const newRecipe = recipes.filter((reci) => reci.type === 'meal');
+    const doneRecipes1 = JSON.parse(localStorage.getItem('doneRecipes'));
+    const newRecipe = doneRecipes1.filter((reci) => reci.type === 'meal');
     this.setState({
       recipes: newRecipe,
     });
   };
 
   onclickDrink = () => {
-    const { recipes } = this.state;
-    const newRecipe = recipes.filter((reci1) => reci1.type === 'drink');
+    const doneRecipes1 = JSON.parse(localStorage.getItem('doneRecipes'));
+    const newRecipe = doneRecipes1.filter((reci1) => reci1.type === 'drink');
     this.setState({
       recipes: newRecipe,
     });
