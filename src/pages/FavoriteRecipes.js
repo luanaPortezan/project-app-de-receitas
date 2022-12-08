@@ -26,16 +26,16 @@ class FavoriteRecipes extends React.Component {
   };
 
   onclickMeal = () => {
-    const { recipes } = this.state;
-    const newRecipe = recipes.filter((reci) => reci.type === 'meal');
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newRecipe = favRecipes.filter((reci) => reci.type === 'meal');
     this.setState({
       recipes: newRecipe,
     });
   };
 
   onclickDrink = () => {
-    const { recipes } = this.state;
-    const newRecipe = recipes.filter((reci1) => reci1.type === 'drink');
+    const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newRecipe = favRecipes.filter((reci1) => reci1.type === 'drink');
     this.setState({
       recipes: newRecipe,
     });
