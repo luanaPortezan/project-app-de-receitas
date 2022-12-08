@@ -71,12 +71,24 @@ function RecipesDetails(props) {
     }, time);
   }, [copiado]);
 
+  const favoritar = () => {
+    let existingFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (existingFavorites === null) existingFavorites = [];
+    const recipeObject = {
+      id: params.id,
+      type: (type[0].toLowerCase()),
+      nationality: (receita.strArea ? receita.strArea : ''),
+      category: receita.strCategory,
+      alcoholicOrNot: (receita.strAlcoholic ? receita.strAlcoholic : ''),
+      name: receita[`str${type[0]}`],
+      image: receita[`str${type[0]}Thumb`],
+    };
+    existingFavorites.push(recipeObject);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(existingFavorites));
+  };
+
   return (
     <main>
-
-      {/* <Header pages isSearch={ false }>
-        <h1>Recipes Details</h1>
-      </Header> */}
       {loadingApi ? <h1>Loading</h1>
         : (
           <>
@@ -163,6 +175,7 @@ function RecipesDetails(props) {
               <button
                 type="button"
                 data-testid="favorite-btn"
+                onClick={ favoritar }
               >
                 Favoritar
               </button>
