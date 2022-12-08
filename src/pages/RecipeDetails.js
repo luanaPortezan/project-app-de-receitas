@@ -6,6 +6,8 @@ import clipboardCopy from 'clipboard-copy';
 import { fetchRecipe, fetchRecipes } from '../redux/actions';
 import 'bootstrap/dist/css/bootstrap.css';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import SugestionCarousel from '../components/SugestionCarousel';
 
 function RecipesDetails(props) {
@@ -18,6 +20,7 @@ function RecipesDetails(props) {
   const [startButton, setStartButton] = useState(true);
   const [continueButton, setContinueButton] = useState(false);
   const [copiado, setCopiado] = useState(false);
+  const [favoriteSrc, setFavoriteSrc] = useState(whiteHeartIcon);
 
   useEffect(() => {
     if (location.pathname.includes('/meals/')) {
@@ -42,6 +45,14 @@ function RecipesDetails(props) {
             setContinueButton(true);
           }
         });
+    }
+    const existingFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (existingFavorites) {
+      existingFavorites.forEach((element) => {
+        if (element.id === params.id) {
+          setFavoriteSrc(blackHeartIcon);
+        }
+      });
     }
   }, []);
 
@@ -176,8 +187,10 @@ function RecipesDetails(props) {
                 type="button"
                 data-testid="favorite-btn"
                 onClick={ favoritar }
+                src={ favoriteSrc }
               >
-                Favoritar
+                Favorita
+
               </button>
             </div>
           </>
