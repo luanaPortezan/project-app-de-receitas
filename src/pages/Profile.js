@@ -1,7 +1,7 @@
-import React from 'react';
 import Proptypes from 'prop-types';
-import Footer from './Footer';
+import React from 'react';
 import Header from '../components/Header';
+import Footer from './Footer';
 
 class Profile extends React.Component {
   constructor() {
@@ -17,10 +17,14 @@ class Profile extends React.Component {
 
   requestLocalStorage = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const { email } = user;
-    this.setState({
-      email,
-    });
+    // console.log(user);
+    // console.log(email);
+    if (user) {
+      const { email } = user;
+      this.setState({
+        email,
+      });
+    }
   };
 
   buttonDoneRecipes = () => {
@@ -46,7 +50,10 @@ class Profile extends React.Component {
         <Header pages isSearch={ false }>
           <h1>Profile</h1>
         </Header>
-        <p data-testid="profile-email">{email}</p>
+        {
+          email
+            && <p data-testid="profile-email">{email}</p>
+        }
         <button
           type="button"
           data-testid="profile-done-btn"
