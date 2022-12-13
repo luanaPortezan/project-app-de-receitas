@@ -17,8 +17,7 @@ class Profile extends React.Component {
 
   requestLocalStorage = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    // console.log(user);
-    // console.log(email);
+
     if (user) {
       const { email } = user;
       this.setState({
