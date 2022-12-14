@@ -1,7 +1,7 @@
-import React from 'react';
 import Proptypes from 'prop-types';
-import Footer from './Footer';
+import React from 'react';
 import Header from '../components/Header';
+import Footer from './Footer';
 
 class Profile extends React.Component {
   constructor() {
@@ -17,10 +17,12 @@ class Profile extends React.Component {
 
   requestLocalStorage = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const { email } = user;
-    this.setState({
-      email,
-    });
+    if (user) {
+      const { email } = user;
+      this.setState({
+        email,
+      });
+    }
   };
 
   buttonDoneRecipes = () => {

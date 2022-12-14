@@ -39,6 +39,12 @@ describe('Testa a pagina Profile', () => {
 
     const { location: { pathname } } = history;
     expect(pathname).toBe('/done-recipes');
+
+    const userEmail = await screen.findByText(/teste@teste\.com/i);
+    expect(userEmail).toBeInTheDocument();
+
+    const user = { email: mockEmail };
+    expect(user).toBeTruthy();
   });
 
   it('verifica se clicar no botao favorite direciona para pagina correta', async () => {
