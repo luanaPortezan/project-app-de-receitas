@@ -185,7 +185,7 @@ function RecipesDetails(props) {
                   setCopiado(true);
                 } }
               >
-                <img src={ shareIcon } alt="Compartilhar" />
+                <img src={ shareIcon } alt="share" />
               </button>
               {copiado
             && <p>Link copied!</p>}
