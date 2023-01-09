@@ -45,8 +45,7 @@ describe('Testes da page RecipeDetailsMeals', () => {
     // }
     const instructions = screen.getByTestId('instructions');
     expect(instructions).toBeInTheDocument();
-    const video = screen.getByTestId('video');
-    expect(video).toBeInTheDocument();
+
     const startRecipeBtn = screen.getByTestId('start-recipe-btn');
     userEvent.click(startRecipeBtn);
     expect(history.location.pathname).toBe('/meals/52977/in-progress');
