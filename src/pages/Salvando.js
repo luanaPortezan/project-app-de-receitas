@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import clipboardCopy from 'clipboard-copy';
-import fetchInProgress from '../api/fetchInProgress';
+import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
+// import clipboardCopy from 'clipboard-copy';
+// import fetchInProgress from '../api/fetchInProgress';
 // import RecipeInProgressMeals from '../components/RecipeInProgressMeals';
 // import RecipeInProgressDrink from '../components/RecipeInProgressDrinks';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+// import shareIcon from '../images/shareIcon.svg';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+// import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeInProgress() {
-  const [recipe, setRecipe] = useState([]);
+  // const [recipe, setRecipe] = useState([]);
   // eslint-disable-next-line no-unused-vars
-  const [btnShare, setBtnShare] = useState(false);
+  const [btnShare] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [item, setItem] = useState([]);
+  // const [item, setItem] = useState([]);
   // const [checked] = useState([]);
   // const [btnDisable] = useState(true);
   // eslint-disable-next-line no-unused-vars
-  const [favorites, setFavorites] = useState(false);
+  // const [favorites, setFavorites] = useState(false);
 
-  const path = useHistory().location.pathname;
-  const meals = path.includes('meals');
-  const id = path.split('/')[2];
-  const isMeals = meals ? 'Meal' : 'Drink';
+  // const path = useHistory().location.pathname;
+  // const meals = path.includes('meals');
+  // const id = path.split('/')[2];
+  // const isMeals = meals ? 'Meal' : 'Drink';
   // console.log(isMeals);
 
   // useEffect(() => {
