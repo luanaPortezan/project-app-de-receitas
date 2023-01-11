@@ -104,6 +104,11 @@ function RecipesDetails(props) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(existingFavorites));
   };
 
+  useEffect(() => {
+    const numIngred = Object.values(ingredientes).filter((el) => el.length >= 1);
+    localStorage.setItem('numero', JSON.stringify(numIngred.length));
+    console.log(numIngred.length);
+  }, [ingredientes]);
   return (
     <main>
       {loadingApi ? <h1>Loading</h1>
@@ -185,7 +190,7 @@ function RecipesDetails(props) {
                   setCopiado(true);
                 } }
               >
-                <img src={ shareIcon } alt="Compartilhar" />
+                <img src={ shareIcon } alt="share" />
               </button>
               {copiado
             && <p>Link copied!</p>}
