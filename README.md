@@ -24,8 +24,6 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - JavaScript
 - React
 - Node.js
-- Express
-- MongoDB
 
 ## Como executar o projeto
 
