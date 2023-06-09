@@ -24,6 +24,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - JavaScript
 - React
 - Node.js
+- RTL
 
 ## Como executar o projeto
 
